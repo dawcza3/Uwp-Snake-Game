@@ -5,4 +5,10 @@
     xmlns:local="using:SnakeUWP"
     RequestedTheme="Light">
 
+    <Application.Resources>
+        <ResourceDictionary>
+            <local:ViewModelLocator x:Key="Locator" />
+        </ResourceDictionary>
+    </Application.Resources>
+
 </Application>
