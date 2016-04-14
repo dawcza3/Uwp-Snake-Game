@@ -60,7 +60,8 @@ namespace SnakeUWP
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
             SimpleIoc.Default.Register<INavigation, WindowsNavigation>();
-
+            SimpleIoc.Default.Register<ITimer,Timer>();
+            
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<OptionsViewModel>();
             SimpleIoc.Default.Register<GameViewModel>();

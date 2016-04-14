@@ -6,10 +6,116 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    DataContext="{Binding Source={StaticResource Locator}, Path=GameViewModel}"
-    >
+    SizeChanged="pageRoot_SizeChanged"
+    DataContext="{Binding Source={StaticResource Locator}, Path=GameViewModel}">
 
-    <Grid Background="Black">
+    <Grid Background="Black" BorderThickness="3">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="52" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="52" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="80" />
+        </Grid.ColumnDefinitions>
 
+        <!-- Pause Button -->
+        <Grid Grid.Column="2" Background="DodgerBlue">
+            <Button
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Command="{Binding PauseCommand}">
+                <Image
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Stretch="None"
+                    Source="{Binding PauseButtonSource}" />
+            </Button>
+        </Grid>
+
+        <!-- Top Button -->
+        <Grid Grid.Column="1" x:Name="TopButton">
+            <Button
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Command="{Binding DirectionChanged}"
+                CommandParameter="{Binding ElementName=TopButton,Path=Name}">
+                <Image
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Stretch="None"
+                    Source="ms-appx:///Assets/upArrow.png" />
+            </Button>
+        </Grid>
+
+        <!-- Left Button -->
+        <Grid Grid.Row="1" x:Name="LeftButton">
+            <Button
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Command="{Binding DirectionChanged}"
+                CommandParameter="{Binding ElementName=LeftButton,Path=Name}">
+                <Image
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Stretch="None"
+                    Source="ms-appx:///Assets/leftArrow.png" />
+            </Button>
+        </Grid>
+
+        <!-- Right Button -->
+        <Grid Grid.Row="1" Grid.Column="2" x:Name="RightButton">
+            <Button
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Background="Transparent"
+                Command="{Binding DirectionChanged}"
+                CommandParameter="{Binding ElementName=RightButton,Path=Name}">
+                <Image
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Stretch="None"
+                    Source="ms-appx:///Assets/rightArrow.png" />
+            </Button>
+        </Grid>
+
+        <!-- Down Button -->
+        <Grid Grid.Column="1" Grid.Row="2" x:Name="DownButton">
+            <Button
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Command="{Binding DirectionChanged}"
+                CommandParameter="{Binding ElementName=DownButton,Path=Name}">
+                <Image
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Stretch="None"
+                    Source="ms-appx:///Assets/downArrow.png" />
+            </Button>
+
+        </Grid>
+        <!-- Score Label -->
+        <Grid>
+            <TextBlock FontSize="16" Foreground="DodgerBlue" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Run Text="Points: "></Run>
+                <Run Text="{Binding Score}"></Run>
+            </TextBlock>
+        </Grid>
+        
+        <!-- Play area -->
+        <Border BorderBrush="Blue" BorderThickness="2" Background="Black"
+                Grid.Row="1" Grid.Column="1" >
+            <ItemsControl x:Name="PlayControl"  
+                Margin="5">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas Background="Black" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </Border>
     </Grid>
 </Page>
+
