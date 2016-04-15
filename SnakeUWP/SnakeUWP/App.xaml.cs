@@ -57,6 +57,9 @@ namespace SnakeUWP
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
 
+                // Injecting media players on each page.
+                rootFrame.Style = this.Resources["RootFrameStyle"] as Style;
+
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)

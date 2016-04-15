@@ -3,12 +3,33 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:SnakeUWP"
+    xmlns:converters="using:SnakeUWP.Converters"
     RequestedTheme="Light">
 
     <Application.Resources>
         <ResourceDictionary>
             <local:ViewModelLocator x:Key="Locator" />
+            <converters:BoolToVisibilityConverter x:Name="VisibilityConverter"/>
+            <!-- Injecting media players on each page -->
+            <Style x:Key="RootFrameStyle"
+           TargetType="Frame">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Frame">
+                            <Grid>
+                                <!-- Foreground Player -->
+                                <MediaElement IsLooping="False" />
+                                <!-- Background Player -->
+                                <MediaElement IsLooping="True" />
+                                <ContentPresenter />
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
         </ResourceDictionary>
+        
+        
     </Application.Resources>
 
 </Application>

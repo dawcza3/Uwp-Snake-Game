@@ -98,6 +98,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\boolToVisibilityConverter.cs" />
     <Compile Include="Pages\AnimatedImage.xaml.cs" />
     <Compile Include="Pages\GamePage.xaml.cs">
       <DependentUpon>GamePage.xaml</DependentUpon>
@@ -109,6 +110,8 @@
       <DependentUpon>OptionsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\CanvasHelper.cs" />
+    <Compile Include="Services\SoundPlayer.cs" />
+    <Compile Include="Services\Sounds.cs" />
     <Compile Include="Services\Timer.cs" />
     <Compile Include="Services\WindowsNavigation.cs" />
     <Compile Include="Pages\MainPage.xaml.cs">
@@ -125,6 +128,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\backButton.png" />
+    <Content Include="Assets\Bell.mp3" />
     <Content Include="Assets\downArrow.png" />
     <Content Include="Assets\easyLevel.png" />
     <Content Include="Assets\green.png" />
@@ -132,6 +136,7 @@
     <Content Include="Assets\highscoreButton.png" />
     <Content Include="Assets\leftArrow.png" />
     <Content Include="Assets\mediumLevel.png" />
+    <Content Include="Assets\Nature.mp3" />
     <Content Include="Assets\nosoundButton.png" />
     <Content Include="Assets\optionsButton.png" />
     <Content Include="Assets\playButton.png" />
@@ -142,6 +147,7 @@
     <Content Include="Assets\soundButton.png" />
     <Content Include="Assets\startButton.png" />
     <Content Include="Assets\stopButton.png" />
+    <Content Include="Assets\Sweep.mp3" />
     <Content Include="Assets\upArrow.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />

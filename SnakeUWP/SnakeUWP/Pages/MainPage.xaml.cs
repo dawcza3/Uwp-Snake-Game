@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Mvvm.Services.Sound;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -25,6 +26,18 @@ namespace SnakeUWP
         public MainPage()
         {
             this.InitializeComponent();
+            this.Loaded += MainPage_Loaded;
+        }
+
+        private void MainPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            SoundPlayer.Instance.Initialize();
+            PlaySound();
+        }
+
+        public async void PlaySound()
+        {
+            await SoundPlayer.Instance.Play(Sounds.Nature, true);
         }
     }
 }

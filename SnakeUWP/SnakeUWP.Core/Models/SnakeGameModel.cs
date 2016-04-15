@@ -10,7 +10,7 @@ namespace SnakeUWP.Core.Models
         public static readonly Size PlayAreaSize = new Size(400, 300);
         private readonly Random _random = new Random();
 
-        private readonly List<SnakeBody> _snakeBodies = new List<SnakeBody>();
+        private List<SnakeBody> _snakeBodies;
         private Fruit _fruit;
 
         public SnakeGameModel()
@@ -32,6 +32,9 @@ namespace SnakeUWP.Core.Models
         {
             GameOver = false;
             SnakeBody snakeBody = new SnakeBody(Direction.Right, SnakeBodyType.SnakeHead);
+            _snakeBodies=new List<SnakeBody>();
+            _fruit = null;
+            Score = 0;
             _snakeBodies.Add(snakeBody);
             OnSnakeChanged(snakeBody, false);
             NextFruit();

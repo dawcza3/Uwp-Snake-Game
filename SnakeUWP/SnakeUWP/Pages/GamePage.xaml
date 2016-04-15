@@ -21,6 +21,39 @@
             <ColumnDefinition Width="80" />
         </Grid.ColumnDefinitions>
 
+
+        <!-- Paused Menu -->
+        <Popup VerticalAlignment="Top" HorizontalAlignment="Center" IsOpen="{Binding Paused}"
+               Grid.Row="1" Grid.Column="1" 
+               >
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="5" BorderBrush="DodgerBlue">
+
+                <TextBlock Text="Paused" VerticalAlignment="Center" HorizontalAlignment="Center"
+                           FontFamily="Arial Narrow" FontSize="20"
+                           Foreground="DodgerBlue" FontWeight="ExtraBold" FontStyle="Italic"
+                           
+                           Margin="12,12,12,20" />
+
+                <Button Content="Continue game"
+                        Background="DodgerBlue"
+                        BorderBrush="DodgerBlue"
+                        BorderThickness="2"
+                        HorizontalAlignment="Center"
+                        Margin="12,12,12,12"
+                        Command="{Binding PauseCommand}"
+                        FontSize="16" />
+
+                <Button Content="Go back to menu"
+                        Background="DodgerBlue"
+                        BorderBrush="DodgerBlue"
+                        BorderThickness="2"
+                        Margin="12,12,12,12"
+                        HorizontalAlignment="Center"
+                        Command="{Binding OnBack}"
+                        FontSize="16" />
+            </StackPanel>
+        </Popup>
+
         <!-- Pause Button -->
         <Grid Grid.Column="2" Background="DodgerBlue">
             <Button
@@ -103,12 +136,12 @@
                 <Run Text="{Binding Score}"></Run>
             </TextBlock>
         </Grid>
-        
+
         <!-- Play area -->
         <Border BorderBrush="Blue" BorderThickness="2" Background="Black"
-                Grid.Row="1" Grid.Column="1" >
-            <ItemsControl x:Name="PlayControl"  
-                Margin="5">
+                Grid.Row="1" Grid.Column="1">
+            <ItemsControl x:Name="PlayControl"
+                          Margin="5">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <Canvas Background="Black" />
