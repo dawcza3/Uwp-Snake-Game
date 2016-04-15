@@ -9,7 +9,7 @@
     SizeChanged="pageRoot_SizeChanged"
     DataContext="{Binding Source={StaticResource Locator}, Path=GameViewModel}">
 
-    <Grid Background="Black" BorderThickness="3">
+    <Grid Background="Black" BorderBrush="DodgerBlue" BorderThickness="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="52" />
             <RowDefinition Height="*" />

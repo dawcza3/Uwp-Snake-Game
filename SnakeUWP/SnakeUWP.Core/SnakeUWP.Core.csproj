@@ -38,6 +38,7 @@
     <Compile Include="Models\Fruit.cs" />
     <Compile Include="Models\FruitChangedEventArgs.cs" />
     <Compile Include="Models\FruitType.cs" />
+    <Compile Include="Models\PlayerScore.cs" />
     <Compile Include="Models\Snake.cs" />
     <Compile Include="Models\SnakeBody.cs" />
     <Compile Include="Models\SnakeChangedEventArgs.cs" />

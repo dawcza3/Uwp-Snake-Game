@@ -94,6 +94,7 @@ namespace SnakeUWP.Pages
             if (gameViewModel != null)
             {
                 _scale = (newPlayAreaSize.Height / 300 + newPlayAreaSize.Width / 300) / 2;
+                GameViewModel.Scale = _scale;
                 if (this._fruit != null && this._fruitFrameworkElement != null)
                 {
                     CanvasHelper.MoveElementOnCanvas(_fruitFrameworkElement, _fruit.Location.X * _scale, _fruit.Location.Y * _scale);

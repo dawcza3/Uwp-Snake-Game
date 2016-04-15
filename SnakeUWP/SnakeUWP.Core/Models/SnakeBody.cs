@@ -3,21 +3,8 @@ using SnakeUWP.Core.ViewModels;
 
 namespace SnakeUWP.Core.Models
 {
-    public class SnakeBody 
-    {/*
-        public static Size PlayAreaSize = new Size(400, 300);
-        public static readonly Size PlayerSize = new Size(25, 15);
-
-        const double PixelsToMove = 10;
-
-        public SnakeBody(Direction direction, SnakeBodyType bodyType)
-            : base(new Point(PlayerSize.Width, PlayAreaSize.Height * 3),
-                  PlayerSize, direction, bodyType)
-        {
-            Location = new Point(Location.X, PlayAreaSize.Height / 4);
-        }
-        */
-
+    public class SnakeBody
+    {
         private static Size _playAreaSize = new Size(400, 300);
         public static readonly Size PlayerSize = new Size(25, 15);
 
@@ -46,47 +33,27 @@ namespace SnakeUWP.Core.Models
 
         public void Move(Direction direction, bool directionChanged = false)
         {
-            switch (direction)
+          /*  if (!(Location.X > 0 && Location.X < 400 - PlayerSize.Width) && (Location.Y > 0 && Location.Y < 300 - PlayerSize.Height))
+                return;
+         */   switch (direction)
             {
                 case Direction.Left:
                     if (Location.X > 0)
-                        Location = new Point(Location.X - PixelsToMove, Location.Y);
+                    Location = new Point(Location.X - PixelsToMove, Location.Y);
                     break;
                 case Direction.Right:
-                    if (Location.X  < _playAreaSize.Width - PlayerSize.Width)
-                        Location = new Point(Location.X + PixelsToMove, Location.Y);
+                    if (Location.X  < _playAreaSize.Width-PlayerSize.Width*2)
+                    Location = new Point(Location.X + PixelsToMove, Location.Y);
                     break;
                 case Direction.Up:
                     if (Location.Y > 0)
-                        Location = new Point(Location.X, Location.Y - PixelsToMove);
+                    Location = new Point(Location.X, Location.Y - PixelsToMove);
                     break;
                 default:
-                    if (Location.Y < _playAreaSize.Height - PlayerSize.Height)
-                        Location = new Point(Location.X, Location.Y + PixelsToMove);
+                    if (Location.Y < _playAreaSize.Height - PlayerSize.Height*6)
+                    Location = new Point(Location.X, Location.Y + PixelsToMove);
                     break;
             }
         }
-        /*        public void Move(Direction direction, bool directionChanged = false)
-        {
-            switch (direction)
-            {
-                case Direction.Left:
-                    if (Location.X > 0)
-                        Location = new Point(Location.X - PixelsToMove, Location.Y);
-                    break;
-                case Direction.Right:
-                    if (Location.X * GameViewModel.Scale < PlayAreaSize.Width - 50)
-                        Location = new Point(Location.X + PixelsToMove, Location.Y);
-                    break;
-                case Direction.Up:
-                    if (Location.Y > 0)
-                        Location = new Point(Location.X, Location.Y - PixelsToMove);
-                    break;
-                default:
-                    if (Location.Y * GameViewModel.Scale < PlayAreaSize.Height - 50)
-                        Location = new Point(Location.X, Location.Y + PixelsToMove);
-                    break;
-            }
-        }*/
     }
 }

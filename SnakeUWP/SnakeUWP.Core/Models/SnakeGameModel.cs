@@ -9,9 +9,9 @@ namespace SnakeUWP.Core.Models
     {
         public static readonly Size PlayAreaSize = new Size(400, 300);
         private readonly Random _random = new Random();
-        private List<SnakeBody> _snakeBodies = new List<SnakeBody>();
-        public List<SnakeBody> SnakeBodies { get { return _snakeBodies; } }
-        private Fruit fruit;
+
+        private readonly List<SnakeBody> _snakeBodies = new List<SnakeBody>();
+        private Fruit _fruit;
 
         public SnakeGameModel()
         {
@@ -72,13 +72,13 @@ namespace SnakeUWP.Core.Models
 
         private void CheckForSnakeCollisions()
         {
-            if (fruit == null) return;
-            if (_snakeBodies.First().Area.Contains(fruit.Location) || 
-                fruit.Area.Contains(_snakeBodies.First().Location))
+            if (_fruit == null) return;
+            if (_snakeBodies.First().Area.Contains(_fruit.Location) || 
+                _fruit.Area.Contains(_snakeBodies.First().Location))
             {
-                Score += fruit.Score;
-                OnFruitChanged(fruit, true);
-                fruit = null;
+                Score += _fruit.Score;
+                OnFruitChanged(_fruit, true);
+                _fruit = null;
                 AddBody();
                 NextFruit();
             }
@@ -118,22 +118,22 @@ namespace SnakeUWP.Core.Models
             switch (row)
             {
                 case 0:
-                    fruit = new Fruit(FruitType.Green, location, 50);
+                    _fruit = new Fruit(FruitType.Green, location, 50);
                     break;
                 case 1:
-                    fruit = new Fruit(FruitType.Red, location, 40);
+                    _fruit = new Fruit(FruitType.Red, location, 40);
                     break;
                 case 2:
-                    fruit = new Fruit(FruitType.Red, location, 30);
+                    _fruit = new Fruit(FruitType.Red, location, 30);
                     break;
                 case 3:
-                    fruit = new Fruit(FruitType.Green, location, 20);
+                    _fruit = new Fruit(FruitType.Green, location, 20);
                     break;
                 default:
-                    fruit = new Fruit(FruitType.Red, location, 10);
+                    _fruit = new Fruit(FruitType.Red, location, 10);
                     break;
             }
-            OnFruitChanged(fruit, false);
+            OnFruitChanged(_fruit, false);
         }
 
         public void ChangeMoveDirection(string name)

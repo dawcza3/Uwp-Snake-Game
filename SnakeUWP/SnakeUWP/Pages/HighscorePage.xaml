@@ -9,13 +9,17 @@
     DataContext="{Binding Source={StaticResource Locator}, Path=HighscoreViewModel}"
     >
 
-    <Grid Background="Black">
+    <Grid Background="Black" BorderBrush="DodgerBlue" BorderThickness="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
-        <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid ColumnSpan="3">
             <TextBlock FontSize="40"
                            Margin="12,12,12,12"
                            Text="Highscore"
@@ -36,9 +40,40 @@
             </Button>
         </Grid>
 
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1">
-            <TextBlock Foreground="DodgerBlue">Highscore page</TextBlock>
-        </StackPanel>
+        <Grid Row="1" Column="2">
+            <ListBox Foreground="DodgerBlue" Background="Black"/>
+        </Grid>
+        <Grid ColumnSpan="3"
+              Row="1"
+              HorizontalAlignment="Stretch" 
+              VerticalAlignment="Stretch"
+              BorderBrush="DodgerBlue"
+              >
+            <ListView IsItemClickEnabled="False"
+                ItemsSource="{Binding MediumScores}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Margin="12,12,12,12">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition Width="40"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid HorizontalAlignment="Left">
+                                <TextBlock  Foreground="DodgerBlue" Text="{Binding Name}" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Column="2" HorizontalAlignment="Right" >
+                                <TextBlock  Foreground="DodgerBlue" Text="{Binding Score}" HorizontalAlignment="Center"/>
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </Grid>
 
     </Grid>
 </Page>
