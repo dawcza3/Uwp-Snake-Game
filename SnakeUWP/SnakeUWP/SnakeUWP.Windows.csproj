@@ -126,9 +126,12 @@
   <ItemGroup>
     <Content Include="Assets\backButton.png" />
     <Content Include="Assets\downArrow.png" />
+    <Content Include="Assets\easyLevel.png" />
     <Content Include="Assets\green.png" />
+    <Content Include="Assets\hardLevel.png" />
     <Content Include="Assets\highscoreButton.png" />
     <Content Include="Assets\leftArrow.png" />
+    <Content Include="Assets\mediumLevel.png" />
     <Content Include="Assets\nosoundButton.png" />
     <Content Include="Assets\optionsButton.png" />
     <Content Include="Assets\playButton.png" />
