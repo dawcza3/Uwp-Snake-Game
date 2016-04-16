@@ -72,7 +72,7 @@ namespace Mvvm.Services.Sound
             }
         }
 
-        public async Task Play(Sounds sound, bool inBackground = false)
+        public async Task Play(bool inBackground = false)
         {
             var mediaElement = inBackground ? BackgroundPlayer : ForegroundPlayer;
 
@@ -80,8 +80,7 @@ namespace Mvvm.Services.Sound
             {
                 return;
             }
-
-            string source = string.Format("ms-appx:///Assets/{0}.mp3", sound.ToString());
+            string source = "ms-appx:///Assets/sound.mp3";
             mediaElement.Source = new Uri(source);
 
             await mediaElement.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>

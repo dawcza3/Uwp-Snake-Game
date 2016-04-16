@@ -11,6 +11,53 @@ namespace SnakeUWP.Core.ViewModels
     {
         public ObservableCollection<PlayerScore> MediumScores { get; private set; }
 
+        private string _currentScores = "Medium Level";
+
+        public string CurrentScores
+        {
+            get { return _currentScores; }
+            set { Set(ref _currentScores, value); }
+        }
+
+        private void GetNextContent()
+        {
+            if (CurrentScores == "Medium Level")
+            {
+                CurrentScores = "High Level";
+            }
+            else if (CurrentScores == "High Level")
+            {
+                CurrentScores = "Easy Level";
+            }
+            else
+            {
+                CurrentScores = "Medium Level";
+            }
+        }
+        private void GetPrevContent()
+        {
+            if (CurrentScores == "Medium Level")
+            {
+                CurrentScores = "Easy Level";
+            }
+            else if (CurrentScores == "High Level")
+            {
+                CurrentScores = "Medium Level";
+            }
+            else
+            {
+                CurrentScores = "High Level";
+            }
+        }
+
+
+        private ICommand _getNextCommand;
+        public ICommand GetNextCommand => _getNextCommand ?? (_getNextCommand = new RelayCommand(GetNextContent));
+
+        private ICommand _getPrevCommand;
+        public ICommand GetPrevCommand => _getPrevCommand ?? (_getPrevCommand = new RelayCommand(GetPrevContent));
+
+
         private INavigation navigation;
 
         private ICommand onBack;
@@ -32,17 +79,16 @@ namespace SnakeUWP.Core.ViewModels
             this.navigation = navigation;
             MediumScores = new ObservableCollection<PlayerScore>
             {
-                new PlayerScore("Dawid", 1500),
-                new PlayerScore("Kasia", 2200),
-                new PlayerScore("Marek", 3100),
-                new PlayerScore("Tomek", 1000),
-                new PlayerScore("Mirek", 1200),
-
-/*                new PlayerScore("Dawid", 1500),
-                new PlayerScore("Dawid", 1500),
-                new PlayerScore("Dawid", 1500),
-                new PlayerScore("Dawid", 1500),
-                new PlayerScore("Dawid", 1500),*/
+                new PlayerScore("Dawid", 3100,1),
+                new PlayerScore("Kasia", 2200,2),
+                new PlayerScore("Marek", 1050,3),
+                new PlayerScore("Asia", 500,4),
+                new PlayerScore("Mirek", 60,5),
+                new PlayerScore("Konrad", 2500,6),
+                new PlayerScore("Dariusz", 2200,7),
+                new PlayerScore("Ola", 4100,8),
+                new PlayerScore("Tomek", 5000,9),
+                new PlayerScore("Adam", 10,10)  
             };
         }
 

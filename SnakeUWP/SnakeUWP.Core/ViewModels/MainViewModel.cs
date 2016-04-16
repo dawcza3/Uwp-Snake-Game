@@ -7,6 +7,7 @@ namespace SnakeUWP.Core.ViewModels
 {
     public class MainViewModel:ViewModelBase
     {
+        #region Commands
         private INavigation navigation;
 
         private ICommand navigateToOptions;
@@ -51,10 +52,14 @@ namespace SnakeUWP.Core.ViewModels
                 return navigateToGame;
             }
         }
+        #endregion
 
+        #region Constructor
+        
         public MainViewModel(INavigation navigation)
         {
             this.navigation = navigation;
         }
+#endregion
     }
 }

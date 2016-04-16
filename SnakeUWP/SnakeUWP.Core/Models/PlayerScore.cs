@@ -6,11 +6,13 @@ namespace SnakeUWP.Core.Models
     {
         public int Score { get; set; }
         public string Name { get; set; }
+        public int Place { get; set; }
 
-        public PlayerScore(string name,int score)
+        public PlayerScore(string name,int score,int place)
         {
             Score = score;
             Name = name;
+            Place = place;
         }
     }
 }

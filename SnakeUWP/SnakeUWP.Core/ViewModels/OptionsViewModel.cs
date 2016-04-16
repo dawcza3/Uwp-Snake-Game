@@ -1,13 +1,18 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using SnakeUWP.Core.Services;
+
+
 
 namespace SnakeUWP.Core.ViewModels
 {
     public class OptionsViewModel : ViewModelBase
     {
         private INavigation navigation;
+
+        public Action<bool> OnSoundPlayChanged { get; set; }
 
         public OptionsViewModel(INavigation navigation)
         {
@@ -72,6 +77,7 @@ namespace SnakeUWP.Core.ViewModels
                 if (_musicCommand == null) _musicCommand = new RelayCommand(() =>
                       {
                           MusicOption = !MusicOption;
+                          OnSoundPlayChanged(MusicOption);
                       });
                 return _musicCommand;
             }

@@ -1,0 +1,106 @@
+﻿<Page
+    x:Class="SnakeUWP.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SnakeUWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    DataContext="{Binding Source={StaticResource Locator}, Path=MainViewModel}">
+
+
+<!--
+    ~1~ Triggers @1@
+    <VisualStateManager.VisualStateGroups>
+        <VisualStateGroup>
+            <VisualState>
+                <VisualState.StateTriggers>
+                    ~1~ VisualState to be triggered when the 
+                             window width is >=720 effective pixels. @1@
+                    <AdaptiveTrigger MinWindowHeight="720" />
+                </VisualState.StateTriggers>
+
+                <VisualState.Setters>
+                    <Setter Target="ListView.Visibility"
+                                Value="Collapsed" />
+                    <Setter Target="GridView.Visibility"
+                                Value="Visible" />
+                </VisualState.Setters>
+            </VisualState>
+        </VisualStateGroup>
+    </VisualStateManager.VisualStateGroups>
+-->
+
+
+    <Grid Background="Black"
+          BorderBrush="DodgerBlue" BorderThickness="20"
+          >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="0.5*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid ColumnSpan="6">
+            <TextBlock FontSize="40"
+                       Margin="12,12,12,12"
+                       Text="Snake"
+                       Foreground="DodgerBlue"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center" />
+        </Grid>
+
+        <!-- GameStart Button-->
+        <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Foreground="Black"
+                Background="DodgerBlue"
+                Margin="12,12,12,12"
+                Command="{Binding NavigateToGame}">
+            <Image VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Stretch="None"
+                   Source="ms-appx:///Assets/startButton.png" />
+        </Button>
+        <!-- Options button -->
+        <Button Grid.Row="1" Grid.Column="2"   Grid.ColumnSpan="2" Grid.RowSpan="2"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Foreground="Black"
+                Background="DodgerBlue"
+                Margin="12,12,12,12"
+                Command="{Binding NavigateToOptions}">
+            <Image VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Stretch="None"
+                   Source="ms-appx:///Assets/optionsButton.png" />
+        </Button>
+
+        <!-- Highscore button -->
+        <Button Grid.Row="1" Grid.Column="4"   Grid.ColumnSpan="2" Grid.RowSpan="2"
+                Foreground="Black"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Background="DodgerBlue"
+                Margin="12,12,12,12"
+                Command="{Binding NavigateToHighscore}">
+            <Image VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Stretch="None"
+                   Source="ms-appx:///Assets/highscoreButton.png" />
+        </Button>
+
+
+    </Grid>
+</Page>
+

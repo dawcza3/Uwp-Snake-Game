@@ -23,6 +23,7 @@ namespace SnakeUWP
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private static bool _loadedMusic = false;
         public MainPage()
         {
             this.InitializeComponent();
@@ -31,13 +32,17 @@ namespace SnakeUWP
 
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            SoundPlayer.Instance.Initialize();
-            PlaySound();
+            if (!_loadedMusic)
+            {
+                _loadedMusic = true;
+                SoundPlayer.Instance.Initialize();
+                PlaySound();
+            }
         }
 
         public async void PlaySound()
         {
-            await SoundPlayer.Instance.Play(Sounds.Nature, true);
+            await SoundPlayer.Instance.Play(true);
         }
     }
 }

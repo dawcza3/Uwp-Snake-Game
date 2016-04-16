@@ -1,0 +1,81 @@
+﻿<Page
+    x:Class="SnakeUWP.Pages.OptionsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SnakeUWP.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    DataContext="{Binding Source={StaticResource Locator}, Path=OptionsViewModel}">
+
+    <Grid Background="Black" BorderBrush="DodgerBlue" BorderThickness="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100" />
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+
+        </Grid.ColumnDefinitions>
+
+
+        <Grid ColumnSpan="2">
+            <TextBlock FontSize="40"
+                       Margin="12,12,12,12"
+                       Text="Options"
+                       Foreground="DodgerBlue"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center" />
+            <Button
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Command="{Binding OnBack}">
+                <Image
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Stretch="None"
+                    Source="ms-appx:///Assets/backButton.png" />
+            </Button>
+        </Grid>
+
+        <TextBlock Grid.Row="1"
+                   FontSize="28"
+                   HorizontalAlignment="Center"
+                   Text="Music"
+                   Foreground="DodgerBlue" />
+        <Button Grid.Row="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Margin="12,12,12,12"
+                Background="DodgerBlue"
+                Command="{Binding MusicCommand}">
+            <Image
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Stretch="None"
+                Source="{Binding MusicButtonImage}" />
+        </Button>
+
+        <TextBlock Grid.Row="1" Grid.Column="1"
+                   FontSize="28"
+                   HorizontalAlignment="Center"
+                   Text="Level"
+                   Foreground="DodgerBlue" />
+        <Button Grid.Row="2" Grid.Column="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Margin="12,12,12,12"
+                Background="DodgerBlue"
+                Command="{Binding LevelCommand}">
+            <Image
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Stretch="None"
+                Source="{Binding LevelButtonImage}" />
+        </Button>
+
+
+    </Grid>
+</Page>

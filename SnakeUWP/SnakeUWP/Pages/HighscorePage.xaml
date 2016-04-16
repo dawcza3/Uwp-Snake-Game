@@ -12,6 +12,7 @@
     <Grid Background="Black" BorderBrush="DodgerBlue" BorderThickness="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
+            <RowDefinition Height="20"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -39,17 +40,71 @@
                     Source="ms-appx:///Assets/backButton.png" />
             </Button>
         </Grid>
+        <!-- Left arrow -->
+        <Button 
+                Grid.Row="1"
+                Grid.RowSpan="2"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                            Command="{Binding GetPrevCommand}"
+            >
+            <Image
+                VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Stretch="None"
+                    Source="ms-appx:///Assets/leftArrow.png"
+                />
+        </Button>
+        <!-- Left arrow -->
+        <Button 
+                Grid.Row="1" Grid.Column="2"
+                Grid.RowSpan="2"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Command="{Binding GetNextCommand}"
+            >
+            <Image
+                VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Stretch="None"
+                    Source="ms-appx:///Assets/rightArrow.png"
+                />
+        </Button>
 
-        <Grid Row="1" Column="2">
-            <ListBox Foreground="DodgerBlue" Background="Black"/>
+        <!-- Highscore type -->
+        <TextBlock Grid.Row="1"
+                   Grid.ColumnSpan="3"
+                   Foreground="DodgerBlue"
+                   HorizontalAlignment="Center"
+                   Text="{Binding CurrentScores}"
+                   />
+        <!-- Highscore titles -->
+        <Grid Row="2" ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="44"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="40"/>
+            </Grid.ColumnDefinitions>
+            <Grid HorizontalAlignment="Left" >
+                <TextBlock  Foreground="DodgerBlue" Text="Place" HorizontalAlignment="Center"/>
+            </Grid>
+            <Grid Column="1" HorizontalAlignment="Left" >
+                <TextBlock  Foreground="DodgerBlue" Text="Name" HorizontalAlignment="Center"/>
+            </Grid>
+            <Grid Column="3" HorizontalAlignment="Right" >
+                <TextBlock  Foreground="DodgerBlue" Text="Score" HorizontalAlignment="Center"/>
+            </Grid>
         </Grid>
+
+        <!-- Highscore elements -->
         <Grid ColumnSpan="3"
-              Row="1"
+              Row="2"
               HorizontalAlignment="Stretch" 
               VerticalAlignment="Stretch"
               BorderBrush="DodgerBlue"
               >
-            <ListView IsItemClickEnabled="False"
+            <ListView IsItemClickEnabled="False" 
                 ItemsSource="{Binding MediumScores}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
@@ -58,14 +113,18 @@
                     <DataTemplate>
                         <Grid>
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="44"/>
                                 <ColumnDefinition Width="100"/>
                                 <ColumnDefinition Width="40"/>
                                 <ColumnDefinition Width="40"/>
                             </Grid.ColumnDefinitions>
-                            <Grid HorizontalAlignment="Left">
+                            <Grid  HorizontalAlignment="Left">
+                                <TextBlock  Foreground="DodgerBlue" Text="{Binding Place}" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Column="1" HorizontalAlignment="Left">
                                 <TextBlock  Foreground="DodgerBlue" Text="{Binding Name}" HorizontalAlignment="Center"/>
                             </Grid>
-                            <Grid Column="2" HorizontalAlignment="Right" >
+                            <Grid Column="3" HorizontalAlignment="Right" >
                                 <TextBlock  Foreground="DodgerBlue" Text="{Binding Score}" HorizontalAlignment="Center"/>
                             </Grid>
                         </Grid>

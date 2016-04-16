@@ -111,7 +111,6 @@
     </Compile>
     <Compile Include="Services\CanvasHelper.cs" />
     <Compile Include="Services\SoundPlayer.cs" />
-    <Compile Include="Services\Sounds.cs" />
     <Compile Include="Services\Timer.cs" />
     <Compile Include="Services\WindowsNavigation.cs" />
     <Compile Include="Pages\MainPage.xaml.cs">
@@ -128,7 +127,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\backButton.png" />
-    <Content Include="Assets\Bell.mp3" />
     <Content Include="Assets\downArrow.png" />
     <Content Include="Assets\easyLevel.png" />
     <Content Include="Assets\green.png" />
@@ -136,18 +134,22 @@
     <Content Include="Assets\highscoreButton.png" />
     <Content Include="Assets\leftArrow.png" />
     <Content Include="Assets\mediumLevel.png" />
-    <Content Include="Assets\Nature.mp3" />
     <Content Include="Assets\nosoundButton.png" />
     <Content Include="Assets\optionsButton.png" />
     <Content Include="Assets\playButton.png" />
     <Content Include="Assets\player.png" />
     <Content Include="Assets\red.png" />
     <Content Include="Assets\rightArrow.png" />
+    <Content Include="Assets\Scale-100\startButton.png" />
+    <Content Include="Assets\Scale-120\snakeButton.png" />
+    <Content Include="Assets\Scale-140\snakeButton.png" />
+    <Content Include="Assets\Scale-160\snakeButton.png" />
+    <Content Include="Assets\Scale-180\snakeButton.png" />
+    <Content Include="Assets\Scale-200\snakeButton.png" />
     <Content Include="Assets\snakebody.png" />
+    <Content Include="Assets\sound.mp3" />
     <Content Include="Assets\soundButton.png" />
-    <Content Include="Assets\startButton.png" />
     <Content Include="Assets\stopButton.png" />
-    <Content Include="Assets\Sweep.mp3" />
     <Content Include="Assets\upArrow.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
@@ -193,6 +195,7 @@
       <Name>SnakeUWP.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
