@@ -138,10 +138,10 @@
         </Grid>
 
         <!-- Play area -->
-        <Border BorderBrush="Blue" BorderThickness="2" Background="Black"
+        <Border BorderBrush="Blue" BorderThickness="4" Background="Black" x:Name="playArea"
                 Grid.Row="1" Grid.Column="1">
             <ItemsControl x:Name="PlayControl"
-                          Margin="5">
+                          Margin="4">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <Canvas Background="Black" />

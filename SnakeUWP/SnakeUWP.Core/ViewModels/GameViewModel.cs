@@ -41,16 +41,7 @@ namespace SnakeUWP.Core.ViewModels
                     _pauseCommand = new RelayCommand(() =>
                     {
                         Paused = !Paused;
-                        if (Paused)
-                        {
-                            PauseButtonSource = "ms-appx:///Assets/playButton.png";
-                            _timer.Stop();
-                        }
-                        else
-                        {
-                            PauseButtonSource = "ms-appx:///Assets/stopButton.png";
-                            _timer.Start();
-                        }
+                        
                     });
                 }
                 return _pauseCommand;
@@ -135,7 +126,28 @@ namespace SnakeUWP.Core.ViewModels
         }
 
         private bool _paused;
-        public bool Paused { get {return _paused;} set { Set(ref _paused, value); } }
+
+        public bool Paused
+        {
+            get
+            {
+                return _paused;
+            }
+            set
+            {
+                Set(ref _paused, value);
+                if (value)
+                {
+                    PauseButtonSource = "ms-appx:///Assets/playButton.png";
+                    _timer.Stop();
+                }
+                else
+                {
+                    PauseButtonSource = "ms-appx:///Assets/stopButton.png";
+                    _timer.Start();
+                }
+            }
+        }
 
         public static double Scale { get; set; } = 1;
 

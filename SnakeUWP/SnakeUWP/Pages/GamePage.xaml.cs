@@ -22,6 +22,7 @@ namespace SnakeUWP.Pages
     /// </summary>
     public sealed partial class GamePage : Page
     {
+        private Size newPlayAreaSize;
         private double _scale = 1;
         private readonly ObservableCollection<FrameworkElement>
     _sprites = new ObservableCollection<FrameworkElement>();
@@ -79,8 +80,8 @@ namespace SnakeUWP.Pages
                 else
                 {
                     FrameworkElement invaderControl = _snakeBodies[snakePart];
-                    CanvasHelper.MoveElementOnCanvas(invaderControl, snakePart.Location.X * _scale, snakePart.Location.Y * _scale);
                     CanvasHelper.ResizeElement(invaderControl, snakePart.Size.Width * _scale, snakePart.Size.Height * _scale);
+                    CanvasHelper.MoveElementOnCanvas(invaderControl, snakePart.Location.X * _scale, snakePart.Location.Y * _scale);
                 }
             }
         }
@@ -88,12 +89,15 @@ namespace SnakeUWP.Pages
         private void pageRoot_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             var gameViewModel = DataContext as GameViewModel;
-            var newPlayAreaSize = e.NewSize;
-            newPlayAreaSize.Width -= 160;
-            newPlayAreaSize.Height -= 104;
+            newPlayAreaSize = e.NewSize;
+            newPlayAreaSize.Width -= 208; // odejmuje wielkosci kolumn + grubosc ramki 
+            newPlayAreaSize.Height -= 152; // odjemuje wielkosci wierszy + grubosc ramki
+
             if (gameViewModel != null)
             {
                 _scale = (newPlayAreaSize.Height / 300 + newPlayAreaSize.Width / 300) / 2;
+                SnakeBody.PlayAreaSize = newPlayAreaSize;
+                SnakeBody.Scale = _scale;
                 GameViewModel.Scale = _scale;
                 if (this._fruit != null && this._fruitFrameworkElement != null)
                 {

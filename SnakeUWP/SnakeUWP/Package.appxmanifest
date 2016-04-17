@@ -4,7 +4,7 @@
   <mp:PhoneIdentity PhoneProductId="3170c872-456d-471b-a290-7a0c8f5d2cfc" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>SnakeUWP</DisplayName>
-    <PublisherDisplayName>dawcz</PublisherDisplayName>
+    <PublisherDisplayName>Dawid Czaja</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
