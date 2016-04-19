@@ -21,6 +21,39 @@
             <ColumnDefinition Width="80" />
         </Grid.ColumnDefinitions>
 
+        <!-- Starting game Menu -->
+        <Popup VerticalAlignment="Top" HorizontalAlignment="Center" IsOpen="{Binding GameNotStarted}"
+               Grid.Row="1" Grid.Column="1" 
+               >
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="5" BorderBrush="DodgerBlue">
+
+                <TextBlock Text="Enter your name" VerticalAlignment="Center" HorizontalAlignment="Center"
+                           FontFamily="Arial Narrow" FontSize="20"
+                           Foreground="DodgerBlue" FontWeight="ExtraBold" FontStyle="Italic"
+                           
+                           Margin="12,12,12,20" />
+
+
+                <TextBox
+                    x:Name="UserName"
+                        Background="DodgerBlue"
+                        BorderBrush="DodgerBlue"
+                        BorderThickness="2"
+                        HorizontalAlignment="Center"
+                        Margin="12,12,12,12"
+                        FontSize="16" />
+
+                <Button Content="Start game"
+                        Background="DodgerBlue"
+                        BorderBrush="DodgerBlue"
+                        BorderThickness="2"
+                        Margin="12,12,12,12"
+                        HorizontalAlignment="Center"
+                        Command="{Binding StartGameCommand}"
+                        CommandParameter="{Binding ElementName=UserName,Path=Text}"
+                        FontSize="16" />
+            </StackPanel>
+        </Popup>
 
         <!-- Paused Menu -->
         <Popup VerticalAlignment="Top" HorizontalAlignment="Center" IsOpen="{Binding Paused}"
@@ -41,6 +74,35 @@
                         HorizontalAlignment="Center"
                         Margin="12,12,12,12"
                         Command="{Binding PauseCommand}"
+                        FontSize="16" />
+
+                <Button Content="Go back to menu"
+                        Background="DodgerBlue"
+                        BorderBrush="DodgerBlue"
+                        BorderThickness="2"
+                        Margin="12,12,12,12"
+                        HorizontalAlignment="Center"
+                        Command="{Binding OnBack}"
+                        FontSize="16" />
+            </StackPanel>
+        </Popup>
+
+        <!-- GameOver Menu -->
+        <Popup VerticalAlignment="Top" HorizontalAlignment="Center" IsOpen="{Binding GameOver}"
+               Grid.Row="1" Grid.Column="1" 
+               >
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="5" BorderBrush="DodgerBlue">
+
+                <TextBlock Text="Game Over" VerticalAlignment="Center" HorizontalAlignment="Center"
+                           FontFamily="Arial Narrow" FontSize="20"
+                           Foreground="DodgerBlue" FontWeight="ExtraBold" FontStyle="Italic"
+                           
+                           Margin="12,12,12,20" />
+
+                <TextBlock Text="You failed."
+                        Foreground="DodgerBlue"
+                        HorizontalAlignment="Center"
+                        Margin="12,12,12,12"
                         FontSize="16" />
 
                 <Button Content="Go back to menu"
@@ -138,17 +200,19 @@
         </Grid>
 
         <!-- Play area -->
-        <Border BorderBrush="Blue" BorderThickness="4" Background="Black" x:Name="playArea"
+        <Border BorderBrush="Blue" BorderThickness="4" Background="Black" x:Name="playArea" 
                 Grid.Row="1" Grid.Column="1">
             <ItemsControl x:Name="PlayControl"
                           Margin="4">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <Canvas Background="Black" />
+                        <Canvas Background="Black"  />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
         </Border>
+
+
     </Grid>
 </Page>
 

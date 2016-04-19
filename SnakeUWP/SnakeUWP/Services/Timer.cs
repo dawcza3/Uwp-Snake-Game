@@ -37,6 +37,7 @@ namespace SnakeUWP.Services
 
         public void Dispose()
         {
+
         }
 
         #endregion

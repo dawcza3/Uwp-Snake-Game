@@ -40,7 +40,8 @@ namespace SnakeUWP.Core.ViewModels
                 {
                     _pauseCommand = new RelayCommand(() =>
                     {
-                        Paused = !Paused;
+                        if(!GameOver)
+                            Paused = !Paused;
                         
                     });
                 }
@@ -48,6 +49,43 @@ namespace SnakeUWP.Core.ViewModels
             }
         }
 
+        private ICommand _startGameCommand;
+
+        private string _name;
+        public ICommand StartGameCommand
+        {
+            get
+            {
+                if(_startGameCommand==null)_startGameCommand=new RelayCommand<string>((name) =>
+                {
+                    _name = name;
+                    switch (Singleton.Instance.LevelType)
+                    {
+                        case "Easy Level":
+                            _timer.Interval = 86;
+                            break;
+                        case "Medium Level":
+                            _timer.Interval = 76;
+                            break;
+                        case "Hard Level":
+                            _timer.Interval = 66;
+                            break;
+                    }
+                    _timer.Start();
+                    _model.EndGame();
+                    StartGame();
+                    GameNotStarted = false;
+                }, (name) =>
+                {
+                    if (name == null) return false;
+                    if (name.Length != 0)
+                        return true;
+                    else
+                        return false;
+                });
+                return _startGameCommand;
+            }
+        }
 
         #endregion
 
@@ -69,33 +107,31 @@ namespace SnakeUWP.Core.ViewModels
 
         private void TimerTick()
         {
-            _model.Update(false);
-
-            if (Score != _model.Score)
+            if (!GameNotStarted)
             {
-                Score = _model.Score;
-                RaisePropertyChanged("Score");
-            }
+                _model.Update(false);
 
-            if (_model.GameOver)
-            {
-                RaisePropertyChanged("GameOver");
-                _timer.Stop();
+                if (Score != _model.Score)
+                {
+                    Score = _model.Score;
+                    RaisePropertyChanged("Score");
+                }
+
+                if (_model.GameOver)
+                {
+                    RaisePropertyChanged("GameOver");
+                    _timer.Stop();
+                }
             }
         }
 
         public GameViewModel(INavigation navigation, ITimer timer)
         {
             _navigation = navigation;
-
             _timer = timer;
             _timer.OnTick = TimerTick;
-            timer.Interval = 66;
-            timer.Start();
-
             _model.SnakeChanged += _model_SnakeChanged;
             _model.FruitChanged += _model_FruitChanged;
-            _model.EndGame();
         }
         #endregion
 
@@ -116,7 +152,26 @@ namespace SnakeUWP.Core.ViewModels
         #endregion
 
         #region Properties
-        public bool GameOver => _model.GameOver;
+
+        private bool _gameNotStarted = true;
+
+        public bool GameNotStarted
+        {
+            get
+            {
+                return _gameNotStarted;
+            }
+            set
+            {
+                Set(ref _gameNotStarted, value);
+            }
+        }
+
+        public bool GameOver
+        {
+            get { return _model.GameOver; }
+            set { _model.GameOver = value; }
+        }
 
         private string _pauseButtonSource = "ms-appx:///Assets/stopButton.png";
         public string PauseButtonSource
@@ -166,10 +221,12 @@ namespace SnakeUWP.Core.ViewModels
         public override void Cleanup()
         {
             base.Cleanup();
-            _timer.Start();
-            _model.EndGame();
+            //_timer.Start();
+            //_model.EndGame();
             Score = 0;
-            StartGame();
+            //StartGame();
+            GameNotStarted = true;
+            GameOver = false;
             PauseButtonSource = "ms-appx:///Assets/stopButton.png";
         }
 

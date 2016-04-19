@@ -31,28 +31,37 @@ namespace SnakeUWP.Core.Models
             BodyType = bodyType;
         }
 
-        public void Move(Direction direction, bool directionChanged = false)
+        public bool Move(Direction direction, bool directionChanged = false)
         {
             switch (direction)
             {
                 case Direction.Left:
                     if (Location.X > 0)
+                    {
                         Location = new Point(Location.X - PixelsToMove, Location.Y);
+                    }
+                    else return false;
                     break;
                 case Direction.Right:
-                    if (Location.X * Scale + Size.Width * Scale <= PlayAreaSize.Width)
+                    if (Location.X*Scale + Size.Width*Scale <= PlayAreaSize.Width)
                         Location = new Point(Location.X + PixelsToMove, Location.Y);
+                    else
+                        return false;
                     break;
                 case Direction.Up:
-                    if (Location.Y > 0)
+                    if ((Location.Y > 0))
                         Location = new Point(Location.X, Location.Y - PixelsToMove);
+                    else
+                        return false;
                     break;
                 default:
-                    if (Location.Y * Scale + Size.Height * Scale <= PlayAreaSize.Height)
+                    if (Location.Y*Scale + Size.Height*Scale <= PlayAreaSize.Height)
                         Location = new Point(Location.X, Location.Y + PixelsToMove);
+                    else
+                        return false;
                     break;
-
             }
+            return true;
         }
     }
 }

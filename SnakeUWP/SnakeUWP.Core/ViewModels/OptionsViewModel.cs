@@ -2,9 +2,8 @@
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using SnakeUWP.Core.Models;
 using SnakeUWP.Core.Services;
-
-
 
 namespace SnakeUWP.Core.ViewModels
 {
@@ -52,6 +51,9 @@ namespace SnakeUWP.Core.ViewModels
             set { Set(ref _levelButtonImage, value); }
         }
 
+        private string _levelType="Easy Level";
+        public string LevelType { get { return _levelType; } set { Set(ref _levelType, value); } }
+
         #region Commands
 
         private ICommand onBack;
@@ -96,16 +98,19 @@ namespace SnakeUWP.Core.ViewModels
                     if (levelCounter == 0)
                     {
                         LevelButtonImage= "ms-appx:///Assets/mediumLevel.png";
+                        Singleton.Instance.LevelType = "Medium Level";
                         levelCounter++;
                     }
                     else if (levelCounter == 1)
                     {
                         LevelButtonImage = "ms-appx:///Assets/hardLevel.png";
+                        Singleton.Instance.LevelType = "Hard Level";
                         levelCounter++;
                     }
                     else
                     {
                         LevelButtonImage = "ms-appx:///Assets/easyLevel.png";
+                        Singleton.Instance.LevelType = "Easy Level";
                         levelCounter = 0;
                     }
                 });

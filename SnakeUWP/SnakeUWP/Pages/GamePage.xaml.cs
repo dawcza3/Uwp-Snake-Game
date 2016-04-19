@@ -43,7 +43,7 @@ namespace SnakeUWP.Pages
             {
                 gameViewModel.UpdateSnakeAction += UpdateSnake;
                 gameViewModel.UpdateFruitAction += UpdateFruit;
-                gameViewModel.StartGame();
+                //gameViewModel.StartGame();
             }
         }
 
@@ -91,7 +91,7 @@ namespace SnakeUWP.Pages
             var gameViewModel = DataContext as GameViewModel;
             newPlayAreaSize = e.NewSize;
             newPlayAreaSize.Width -= 208; // odejmuje wielkosci kolumn + grubosc ramki 
-            newPlayAreaSize.Height -= 152; // odjemuje wielkosci wierszy + grubosc ramki
+            newPlayAreaSize.Height -= 152+8; // odjemuje wielkosci wierszy + grubosc ramki
 
             if (gameViewModel != null)
             {
@@ -106,7 +106,6 @@ namespace SnakeUWP.Pages
                 }
             }
         }
-
     }
 }
 

@@ -104,7 +104,7 @@
               BorderBrush="DodgerBlue"
               >
             <ListView IsItemClickEnabled="False" 
-                ItemsSource="{Binding MediumScores}"
+                ItemsSource="{Binding Scores}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Margin="12,12,12,12">

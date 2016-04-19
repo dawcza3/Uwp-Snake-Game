@@ -4,9 +4,21 @@ namespace SnakeUWP.Core.Models
 {
     public class PlayerScore : ViewModelBase
     {
-        public int Score { get; set; }
-        public string Name { get; set; }
-        public int Place { get; set; }
+        private int _score;
+
+        public int Score
+        {
+            get
+            {
+                return _score;
+            }
+            set { Set(ref _score, value); }
+        }
+
+        private string _name;
+        public string Name { get {return _name;} set { Set(ref _name, value); } }
+        private int _place;
+        public int Place { get { return _place; } set { Set(ref _place, value); } }
 
         public PlayerScore(string name,int score,int place)
         {
