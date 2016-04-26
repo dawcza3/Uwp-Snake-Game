@@ -5,11 +5,15 @@
     xmlns:local="using:SnakeUWP.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:interop="using:Windows.UI.Xaml.Interop"
+xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
     mc:Ignorable="d"
     SizeChanged="pageRoot_SizeChanged"
     DataContext="{Binding Source={StaticResource Locator}, Path=GameViewModel}">
 
-    <Grid Background="Black" BorderBrush="DodgerBlue" BorderThickness="20">
+
+
+    <Grid KeyUp="UIElement_OnKeyUp" Background="Black" BorderBrush="DodgerBlue" BorderThickness="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="52" />
             <RowDefinition Height="*" />

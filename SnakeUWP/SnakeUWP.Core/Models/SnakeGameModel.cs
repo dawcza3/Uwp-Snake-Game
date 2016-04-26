@@ -80,11 +80,12 @@ namespace SnakeUWP.Core.Models
 
         private bool CheckForSnakeBodiesCollision()
         {
-            for (int i = 1; i < _snakeBodies.Count; i++)
+            for (int i = 2; i < _snakeBodies.Count; i++)
             {
                 if (_snakeBodies.First().Area.Contains(_snakeBodies[i].Location))
                 {
                     //throw new NotImplementedException("Nachodza na siebie!!!");
+                    return true;
                 }
             }
             return false;
@@ -135,7 +136,9 @@ namespace SnakeUWP.Core.Models
         {
             int row = _random.Next(0, 10);
             int column = _random.Next(0, 15);
+            Random rand=new Random();
             Point location = new Point(column * Fruit.FruitSize.Width * 1.4, row * Fruit.FruitSize.Height * 1.4);
+            
             switch (row)
             {
                 case 0:

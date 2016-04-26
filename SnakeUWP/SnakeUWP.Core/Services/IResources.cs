@@ -4,6 +4,5 @@
     {
         string Paused { get; }
         string NotPaused { get; }
-         
     }
 }

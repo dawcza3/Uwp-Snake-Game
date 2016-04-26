@@ -8,7 +8,7 @@ using SnakeUWP.Core.Services;
 
 namespace SnakeUWP.Core.ViewModels
 {
-    public class GameViewModel:ViewModelBase
+    public class GameViewModel : ViewModelBase
     {
         #region Commands
         private ICommand _onBack;
@@ -40,9 +40,9 @@ namespace SnakeUWP.Core.ViewModels
                 {
                     _pauseCommand = new RelayCommand(() =>
                     {
-                        if(!GameOver)
+                        if (!GameOver)
                             Paused = !Paused;
-                        
+
                     });
                 }
                 return _pauseCommand;
@@ -56,33 +56,33 @@ namespace SnakeUWP.Core.ViewModels
         {
             get
             {
-                if(_startGameCommand==null)_startGameCommand=new RelayCommand<string>((name) =>
-                {
-                    _name = name;
-                    switch (Singleton.Instance.LevelType)
-                    {
-                        case "Easy Level":
-                            _timer.Interval = 86;
-                            break;
-                        case "Medium Level":
-                            _timer.Interval = 76;
-                            break;
-                        case "Hard Level":
-                            _timer.Interval = 66;
-                            break;
-                    }
-                    _timer.Start();
-                    _model.EndGame();
-                    StartGame();
-                    GameNotStarted = false;
-                }, (name) =>
-                {
-                    if (name == null) return false;
-                    if (name.Length != 0)
-                        return true;
-                    else
-                        return false;
-                });
+                if (_startGameCommand == null) _startGameCommand = new RelayCommand<string>((name) =>
+                      {
+                          _name = name;
+                          switch (Singleton.Instance.LevelType)
+                          {
+                              case "Easy Level":
+                                  _timer.Interval = 86;
+                                  break;
+                              case "Medium Level":
+                                  _timer.Interval = 76;
+                                  break;
+                              case "Hard Level":
+                                  _timer.Interval = 66;
+                                  break;
+                          }
+                          _timer.Start();
+                          _model.EndGame();
+                          StartGame();
+                          GameNotStarted = false;
+                      }, (name) =>
+                      {
+                          if (name == null) return false;
+                          if (name.Length != 0)
+                              return true;
+                          else
+                              return false;
+                      });
                 return _startGameCommand;
             }
         }
@@ -102,7 +102,7 @@ namespace SnakeUWP.Core.ViewModels
             Paused = false;
             _model.StartGame();
             RaisePropertyChanged("GameOver");
-           
+
         }
 
         private void TimerTick()
@@ -230,6 +230,14 @@ namespace SnakeUWP.Core.ViewModels
             PauseButtonSource = "ms-appx:///Assets/stopButton.png";
         }
 
+        #endregion
+
+        #region Methods
+
+        public void ChangedDirection(string direction)
+        {
+            _model.ChangeMoveDirection(direction);
+        }
         #endregion
 
     }

@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ServiceModel.Channels;
 using Windows.Foundation;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 using SnakeUWP.Core.Models;
@@ -104,6 +107,29 @@ namespace SnakeUWP.Pages
                     CanvasHelper.MoveElementOnCanvas(_fruitFrameworkElement, _fruit.Location.X * _scale, _fruit.Location.Y * _scale);
                     CanvasHelper.ResizeElement(_fruitFrameworkElement, _fruit.Size.Width * _scale, _fruit.Size.Height * _scale);
                 }
+            }
+        }
+
+        private void UIElement_OnKeyUp(object sender, KeyRoutedEventArgs e)
+        {
+            var viewmodel = (DataContext as GameViewModel);
+            if (viewmodel == null) return;
+            switch (e.Key)
+            {
+                case VirtualKey.Left:
+                    viewmodel.ChangedDirection("LeftButton");
+                    break;
+                case VirtualKey.Right:
+                    viewmodel.ChangedDirection("RightButton");
+                    break;
+                case VirtualKey.Down:
+                    viewmodel.ChangedDirection("BottomButton");
+                    break;
+                case VirtualKey.Up:
+                    viewmodel.ChangedDirection("TopButton");
+                    break;
+                default:
+                    return;
             }
         }
     }
