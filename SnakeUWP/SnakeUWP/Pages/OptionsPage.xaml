@@ -46,17 +46,32 @@
                    Text="Music"
                    Foreground="DodgerBlue" />
         <Button Grid.Row="2"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Top"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
                 Margin="12,12,12,12"
                 Background="DodgerBlue"
                 Command="{Binding MusicCommand}">
             <Image
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch"
                 Stretch="None"
                 Source="{Binding MusicButtonImage}" />
+            <Button.Transitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition/>
+                </TransitionCollection>
+            </Button.Transitions>
         </Button>
+        
+        <!--
+        AddDeleteThemeTransition
+EdgeUIThemeTransition      
+PaneThemeTransition
+        
+PopupThemeTransition
+ReorderThemeTransition
+RepositionThemeTransition
+        -->
 
         <TextBlock Grid.Row="1" Grid.Column="1"
                    FontSize="28"
@@ -64,8 +79,8 @@
                    Text="Level"
                    Foreground="DodgerBlue" />
         <Button Grid.Row="2" Grid.Column="1"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Top"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
                 Margin="12,12,12,12"
                 Background="DodgerBlue"
                 Command="{Binding LevelCommand}">
@@ -74,6 +89,11 @@
                 HorizontalAlignment="Center"
                 Stretch="None"
                 Source="{Binding LevelButtonImage}" />
+            <Button.Transitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition/>
+                </TransitionCollection>
+            </Button.Transitions>
         </Button>
 
 

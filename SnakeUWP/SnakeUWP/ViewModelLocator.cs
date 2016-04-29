@@ -1,4 +1,5 @@
 ﻿using System;
+using App03.Windows.Services;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using SnakeUWP.Core.Services;
@@ -61,7 +62,10 @@ namespace SnakeUWP
 
             SimpleIoc.Default.Register<INavigation, WindowsNavigation>();
             SimpleIoc.Default.Register<ITimer,Timer>();
-            
+            SimpleIoc.Default.Register<IResources,WindowsResources>();
+            SimpleIoc.Default.Register<IDatabase, WindowsDatabase>();
+            SimpleIoc.Default.Register<ISettings,Settings>();
+
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<OptionsViewModel>();
             SimpleIoc.Default.Register<GameViewModel>();

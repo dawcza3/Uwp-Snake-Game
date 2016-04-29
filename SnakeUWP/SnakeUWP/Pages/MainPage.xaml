@@ -8,30 +8,6 @@
     mc:Ignorable="d"
     DataContext="{Binding Source={StaticResource Locator}, Path=MainViewModel}">
 
-
-<!--
-    ~1~ Triggers @1@
-    <VisualStateManager.VisualStateGroups>
-        <VisualStateGroup>
-            <VisualState>
-                <VisualState.StateTriggers>
-                    ~1~ VisualState to be triggered when the 
-                             window width is >=720 effective pixels. @1@
-                    <AdaptiveTrigger MinWindowHeight="720" />
-                </VisualState.StateTriggers>
-
-                <VisualState.Setters>
-                    <Setter Target="ListView.Visibility"
-                                Value="Collapsed" />
-                    <Setter Target="GridView.Visibility"
-                                Value="Visible" />
-                </VisualState.Setters>
-            </VisualState>
-        </VisualStateGroup>
-    </VisualStateManager.VisualStateGroups>
--->
-
-
     <Grid Background="Black"
           BorderBrush="DodgerBlue" BorderThickness="20"
           >
@@ -71,6 +47,11 @@
                    HorizontalAlignment="Center"
                    Stretch="None"
                    Source="ms-appx:///Assets/startButton.png" />
+            <Button.Transitions>
+                <TransitionCollection>
+                    <AddDeleteThemeTransition/>
+                </TransitionCollection>
+            </Button.Transitions>
         </Button>
         <!-- Options button -->
         <Button Grid.Row="1" Grid.Column="2"   Grid.ColumnSpan="2" Grid.RowSpan="2"
@@ -84,8 +65,13 @@
                    HorizontalAlignment="Center"
                    Stretch="None"
                    Source="ms-appx:///Assets/optionsButton.png" />
+            <Button.Transitions>
+                <TransitionCollection>
+                    <AddDeleteThemeTransition/>
+                </TransitionCollection>
+            </Button.Transitions>
         </Button>
-
+        
         <!-- Highscore button -->
         <Button Grid.Row="1" Grid.Column="4"   Grid.ColumnSpan="2" Grid.RowSpan="2"
                 Foreground="Black"
@@ -98,8 +84,12 @@
                    HorizontalAlignment="Center"
                    Stretch="None"
                    Source="ms-appx:///Assets/highscoreButton.png" />
+            <Button.Transitions>
+                <TransitionCollection>
+                    <AddDeleteThemeTransition/>
+                </TransitionCollection>
+            </Button.Transitions>
         </Button>
-
 
     </Grid>
 </Page>

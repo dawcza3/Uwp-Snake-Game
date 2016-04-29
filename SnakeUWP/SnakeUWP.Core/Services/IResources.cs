@@ -2,7 +2,12 @@
 {
     public interface IResources
     {
-        string Paused { get; }
-        string NotPaused { get; }
+        string ImageMusicOn { get; }
+        string ImageMusicOff { get; }
+        string ImageEasyLevel { get; }
+        string ImageMediumLevel { get; }
+        string ImageHardLevel { get; }
+        string ImagePaused { get; }
+        string ImageNotPaused { get; }
     }
 }

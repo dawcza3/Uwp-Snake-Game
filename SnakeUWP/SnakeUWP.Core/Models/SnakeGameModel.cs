@@ -47,7 +47,7 @@ namespace SnakeUWP.Core.Models
                 _snakeBodies[index].Location = _snakeBodies[index - 1].Location;
                 OnSnakeChanged(_snakeBodies[index], false);
             }
-            var isCanMove=_snakeBodies.First().Move(_snakeBodies.First().Direction);
+            var isCanMove = _snakeBodies.First().Move(_snakeBodies.First().Direction);
             OnSnakeChanged(_snakeBodies.First(), false);
             return isCanMove;
         }
@@ -72,22 +72,20 @@ namespace SnakeUWP.Core.Models
             if (!GameOver)
             {
                 CheckForFruitCollisions();
-                GameOver=!MovePlayer();
-                if(!GameOver)
+                GameOver = !MovePlayer();
+                if (!GameOver)
                     GameOver = CheckForSnakeBodiesCollision();
             }
         }
 
         private bool CheckForSnakeBodiesCollision()
         {
-            for (int i = 2; i < _snakeBodies.Count; i++)
+            if (_snakeBodies.Count(x => Math.Abs(x.Location.X - _snakeBodies.First().Location.X) < 0.0001
+            && Math.Abs(x.Location.Y - _snakeBodies.First().Location.Y) < 0.0001) > 1)
             {
-                if (_snakeBodies.First().Area.Contains(_snakeBodies[i].Location))
-                {
-                    //throw new NotImplementedException("Nachodza na siebie!!!");
-                    return true;
-                }
+                return true;
             }
+
             return false;
         }
 
@@ -122,11 +120,11 @@ namespace SnakeUWP.Core.Models
             }
             else if (_snakeBodies.Last().Direction == Direction.Down)
             {
-                snakeBody.Location = new Point(x, y - SnakeBody.PlayerSize.Height );
+                snakeBody.Location = new Point(x, y - SnakeBody.PlayerSize.Height);
             }
             else
             {
-                snakeBody.Location = new Point(x, y + SnakeBody.PlayerSize.Height );
+                snakeBody.Location = new Point(x, y + SnakeBody.PlayerSize.Height);
             }
             _snakeBodies.Add(snakeBody);
             OnSnakeChanged(snakeBody, false);
@@ -134,27 +132,17 @@ namespace SnakeUWP.Core.Models
 
         private void NextFruit()
         {
-            int row = _random.Next(0, 10);
-            int column = _random.Next(0, 15);
-            Random rand=new Random();
-            Point location = new Point(column * Fruit.FruitSize.Width * 1.4, row * Fruit.FruitSize.Height * 1.4);
-            
-            switch (row)
+            int X = _random.Next(50, 300);
+            int Y = _random.Next(50, 150);
+            int type = _random.Next(0, 2);
+            Point location = new Point(X,Y);
+            switch (type)
             {
                 case 0:
-                    _fruit = new Fruit(FruitType.Green, location, 50);
+                    _fruit = new Fruit(FruitType.Green, location, 10);
                     break;
                 case 1:
-                    _fruit = new Fruit(FruitType.Red, location, 40);
-                    break;
-                case 2:
-                    _fruit = new Fruit(FruitType.Red, location, 30);
-                    break;
-                case 3:
-                    _fruit = new Fruit(FruitType.Green, location, 20);
-                    break;
-                default:
-                    _fruit = new Fruit(FruitType.Red, location, 10);
+                    _fruit = new Fruit(FruitType.Red, location, 20);
                     break;
             }
             OnFruitChanged(_fruit, false);

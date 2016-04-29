@@ -1,6 +1,7 @@
 ﻿using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using SnakeUWP.Core.Models;
 using SnakeUWP.Core.Services;
 
 namespace SnakeUWP.Core.ViewModels
@@ -9,7 +10,7 @@ namespace SnakeUWP.Core.ViewModels
     {
         #region Commands
         private INavigation navigation;
-
+        private ISettings settings;
         private ICommand navigateToOptions;
         public ICommand NavigateToOptions
         {
@@ -56,10 +57,19 @@ namespace SnakeUWP.Core.ViewModels
 
         #region Constructor
         
-        public MainViewModel(INavigation navigation)
+        public MainViewModel(INavigation navigation,ISettings settings)
         {
             this.navigation = navigation;
+            this.settings = settings;
+            Singleton.Instance.LevelType=settings.LoadLevelTypeSetting(Singleton.Instance.LevelType);
+            Singleton.Instance.MusicPlayed=settings.LoadMusicStatusSetting(Singleton.Instance.MusicPlayed);
         }
-#endregion
+
+        public override void Cleanup()
+        {
+            base.Cleanup();
+        }
+
+        #endregion
     }
 }

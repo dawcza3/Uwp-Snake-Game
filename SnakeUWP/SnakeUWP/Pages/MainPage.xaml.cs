@@ -1,6 +1,7 @@
 ﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Mvvm.Services.Sound;
+using SnakeUWP.Core.Models;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -33,6 +34,7 @@ namespace SnakeUWP
         public async void PlaySound()
         {
             await SoundPlayer.Instance.Play(true);
+            SoundPlayer.Instance.IsBackgroundMuted = Singleton.Instance.MusicPlayed;
         }
     }
 }

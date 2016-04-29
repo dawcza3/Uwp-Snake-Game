@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 using Windows.Foundation;
+using App03.Core.Repositories;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using SnakeUWP.Core.Models;
@@ -27,8 +28,13 @@ namespace SnakeUWP.Core.ViewModels
         }
 
         private ICommand _directionChangedCommand;
-        public ICommand DirectionChanged => _directionChangedCommand ?? (_directionChangedCommand = new RelayCommand<string>
-            (_model.ChangeMoveDirection));
+
+        public ICommand DirectionChanged
+            => _directionChangedCommand ?? (_directionChangedCommand = new RelayCommand<string>((s) =>
+            {
+                if (!GameNotStarted)
+                    _model.ChangeMoveDirection(s);
+            }));
 
         private ICommand _pauseCommand;
 
@@ -61,13 +67,13 @@ namespace SnakeUWP.Core.ViewModels
                           _name = name;
                           switch (Singleton.Instance.LevelType)
                           {
-                              case "Easy Level":
+                              case LevelType.Easy:
                                   _timer.Interval = 86;
                                   break;
-                              case "Medium Level":
+                              case LevelType.Medium:
                                   _timer.Interval = 76;
                                   break;
-                              case "Hard Level":
+                              case LevelType.Hard:
                                   _timer.Interval = 66;
                                   break;
                           }
@@ -90,7 +96,9 @@ namespace SnakeUWP.Core.ViewModels
         #endregion
 
         #region Fields
+        private UserDbRepository userDbRepository;
         private readonly INavigation _navigation;
+        private IResources _resources;
         private readonly ITimer _timer;
         private readonly SnakeGameModel _model = new SnakeGameModel();
         #endregion
@@ -101,8 +109,8 @@ namespace SnakeUWP.Core.ViewModels
         {
             Paused = false;
             _model.StartGame();
+            IsGamePlaying = true;
             RaisePropertyChanged("GameOver");
-
         }
 
         private void TimerTick()
@@ -119,19 +127,23 @@ namespace SnakeUWP.Core.ViewModels
 
                 if (_model.GameOver)
                 {
-                    RaisePropertyChanged("GameOver");
+                    //RaisePropertyChanged("GameOver");
+                    GameOver = true;
                     _timer.Stop();
                 }
             }
         }
 
-        public GameViewModel(INavigation navigation, ITimer timer)
+        public GameViewModel(INavigation navigation, ITimer timer, IResources resources,IDatabase database)
         {
             _navigation = navigation;
+            userDbRepository = new UserDbRepository(database.Connection);
             _timer = timer;
+            _resources = resources;
             _timer.OnTick = TimerTick;
             _model.SnakeChanged += _model_SnakeChanged;
             _model.FruitChanged += _model_FruitChanged;
+            _pauseButtonSource = _resources.ImageNotPaused;
         }
         #endregion
 
@@ -153,6 +165,24 @@ namespace SnakeUWP.Core.ViewModels
 
         #region Properties
 
+        private bool _isGamePlaying = false;
+
+        public bool IsGamePlaying
+        {
+            get { return _isGamePlaying; }
+            set
+            {
+                Set(ref _isGamePlaying, value);
+            }
+        }
+
+        private string _userName;
+        public string UserName
+        {
+            get { return _userName;}
+            set { Set(ref _userName, value); }
+        }
+
         private bool _gameNotStarted = true;
 
         public bool GameNotStarted
@@ -170,10 +200,31 @@ namespace SnakeUWP.Core.ViewModels
         public bool GameOver
         {
             get { return _model.GameOver; }
-            set { _model.GameOver = value; }
+            set
+            {
+                _model.GameOver = value;
+                if (!GameNotStarted && _model.GameOver == true)
+                {
+                    IsGamePlaying = false;
+                    AddUserToDataBase(UserName,_model.Score);
+                    RaisePropertyChanged("GameOver");
+                    RaisePropertyChanged("IsGamePlaying");
+                }
+            }
         }
 
-        private string _pauseButtonSource = "ms-appx:///Assets/stopButton.png";
+        private void AddUserToDataBase(string userName, int score)
+        {
+            var user = new User()
+            {
+                Name = userName,
+                Score=score,
+                Level=Singleton.Instance.LevelType
+            };
+            userDbRepository.Insert(user);
+        }
+
+        private string _pauseButtonSource;
         public string PauseButtonSource
         {
             get { return _pauseButtonSource; }
@@ -193,12 +244,14 @@ namespace SnakeUWP.Core.ViewModels
                 Set(ref _paused, value);
                 if (value)
                 {
-                    PauseButtonSource = "ms-appx:///Assets/playButton.png";
+                    PauseButtonSource = _resources.ImagePaused;
+                    if (!GameNotStarted) IsGamePlaying = false;
                     _timer.Stop();
                 }
                 else
                 {
-                    PauseButtonSource = "ms-appx:///Assets/stopButton.png";
+                    PauseButtonSource = _resources.ImageNotPaused;
+                    if(!GameNotStarted) IsGamePlaying = true;
                     _timer.Start();
                 }
             }
@@ -221,13 +274,13 @@ namespace SnakeUWP.Core.ViewModels
         public override void Cleanup()
         {
             base.Cleanup();
-            //_timer.Start();
-            //_model.EndGame();
             Score = 0;
-            //StartGame();
             GameNotStarted = true;
             GameOver = false;
-            PauseButtonSource = "ms-appx:///Assets/stopButton.png";
+            PauseButtonSource = _resources.ImageNotPaused;
+            _userName = "";
+            IsGamePlaying = false;
+            Paused = false;
         }
 
         #endregion

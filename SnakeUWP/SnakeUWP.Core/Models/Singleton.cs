@@ -1,4 +1,7 @@
-﻿namespace SnakeUWP.Core.Models
+﻿using GalaSoft.MvvmLight.Ioc;
+using SnakeUWP.Core.Services;
+
+namespace SnakeUWP.Core.Models
 {
 
     public sealed class Singleton
@@ -17,6 +20,9 @@
             }
         }
 
-        public string LevelType { get; set; } = "Easy Level";
+        public LevelType LevelType { get; set; }
+
+        public bool MusicPlayed { get; set; } 
+
     }
 }

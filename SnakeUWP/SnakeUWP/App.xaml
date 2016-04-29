@@ -10,6 +10,7 @@
         <ResourceDictionary>
             <local:ViewModelLocator x:Key="Locator" />
             <converters:BoolToVisibilityConverter x:Name="VisibilityConverter"/>
+            <converters:BoolToVisibilityConverter2 x:Name="VisibilityConverter2"/>
             <!-- Injecting media players on each page -->
             <Style x:Key="RootFrameStyle"
            TargetType="Frame">

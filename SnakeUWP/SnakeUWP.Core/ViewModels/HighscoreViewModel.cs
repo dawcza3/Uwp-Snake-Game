@@ -1,5 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
+using App03.Core.Repositories;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using SnakeUWP.Core.Models;
@@ -9,6 +12,7 @@ namespace SnakeUWP.Core.ViewModels
 {
     public class HighscoreViewModel : ViewModelBase
     {
+        private UserDbRepository userDbRepository;
         private ObservableCollection<PlayerScore> _scores;
 
         public ObservableCollection<PlayerScore> Scores
@@ -16,13 +20,13 @@ namespace SnakeUWP.Core.ViewModels
             get
             {
                 return _scores;
-            } 
-            set { Set(ref _scores , value); }
+            }
+            set { Set(ref _scores, value); }
         }
 
-        private string _currentScores = "Medium Level";
+        private LevelType _currentScores = LevelType.Medium;
 
-        public string CurrentScores
+        public LevelType CurrentScores
         {
             get { return _currentScores; }
             set { Set(ref _currentScores, value); }
@@ -30,95 +34,68 @@ namespace SnakeUWP.Core.ViewModels
 
         private void GetNextContent()
         {
-            if (CurrentScores == "Medium Level")
+            switch (CurrentScores)
             {
-                CurrentScores = "High Level";
-                LoadScore("High");
+                case LevelType.Medium:
+                    CurrentScores = LevelType.Hard;
+                    break;
+                case LevelType.Hard:
+                    CurrentScores = LevelType.Easy;
+                    break;
+                default:
+                    CurrentScores = LevelType.Medium;
+                    break;
             }
-            else if (CurrentScores == "High Level")
-            {
-                CurrentScores = "Easy Level";
-                LoadScore("Easy");
-            }
-            else
-            {
-                CurrentScores = "Medium Level";
-                LoadScore("Medium");
-            }
+            LoadScore(CurrentScores);
         }
 
-        private void LoadScore(string scoreType)
+        private async void LoadScore(LevelType scoreType)
         {
-            switch (scoreType)
+            try
             {
-                case "Easy":
-                    Scores = new ObservableCollection<PlayerScore>
-                    {
-                        new PlayerScore("Józef", 5100, 1),
-                        new PlayerScore("Zenon", 3500, 2),
-                        new PlayerScore("Kasia", 2200, 3),
-                        new PlayerScore("Asia", 2200, 4),
-                        new PlayerScore("Dariusz", 1050, 5),
-                        new PlayerScore("Zenon", 1000, 8),
-                        new PlayerScore("Asia", 500, 6),
-                        new PlayerScore("Mirek", 60, 7),
-                        new PlayerScore("Tomek", 30, 9),
-                        new PlayerScore("Adam", 10, 10)
-                    };
-                    break;
-                case "Medium":
-                    Scores = new ObservableCollection<PlayerScore>
-                    {
-                        new PlayerScore("Dawid", 3100, 1),
-                        new PlayerScore("Konrad", 2500, 2),
-                        new PlayerScore("Kasia", 2200, 3),
-                        new PlayerScore("Dariusz", 2200, 4),
-                        new PlayerScore("Marek", 1050, 5),
-                        new PlayerScore("Ola", 1000, 8),
-                        new PlayerScore("Asia", 500, 6),
-                        new PlayerScore("Mirek", 60, 7),
-                        new PlayerScore("Tomek", 30, 9),
-                        new PlayerScore("Adam", 10, 10)
-                    };
-                    break;
-                case "High":
-                    Scores = new ObservableCollection<PlayerScore>
-                    {
-                        new PlayerScore("Józef", 2100, 1),
-                        new PlayerScore("Zenon", 1500, 2),
-                        new PlayerScore("Kasia", 1200, 3),
-                        new PlayerScore("Asia", 1200, 4),
-                        new PlayerScore("Dariusz", 550, 5),
-                        new PlayerScore("Zenon", 400, 8),
-                        new PlayerScore("Asia", 300, 6),
-                        new PlayerScore("Mirek", 260, 7),
-                        new PlayerScore("Tomek", 230, 9),
-                        new PlayerScore("Adam", 100, 10)
-                    };
-                    break;
+                List<User> _users=new List<User>();
+                int place = 1;
+                _users = new List<User>(
+                             await userDbRepository.GetUsersWithLevel(CurrentScores));
+
+                Scores = new ObservableCollection<PlayerScore>();
+                foreach (var user in _users)
+                {
+                    Scores.Add(new PlayerScore(user.Name, user.Score, place));
+                    place++;
+                }
+                while (Scores.Count < 10)
+                {
+                    Scores.Add(new PlayerScore("Player",0,place));
+                    place++;
+                }
+
             }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+            }
+
         }
 
         private void GetPrevContent()
         {
-            if (CurrentScores == "Medium Level")
+            switch (CurrentScores)
             {
-                CurrentScores = "Easy Level";
-                LoadScore("Easy");
+                case LevelType.Medium:
+                    CurrentScores = LevelType.Easy;
+                    break;
+                case LevelType.Hard:
+                    CurrentScores = LevelType.Medium;
+                    break;
+                default:
+                    CurrentScores = LevelType.Hard;
+                    break;
             }
-            else if (CurrentScores == "High Level")
-            {
-                CurrentScores = "Medium Level";
-                LoadScore("Medium");
-            }
-            else
-            {
-                CurrentScores = "High Level";
-                LoadScore("High");
-            }
-            RaisePropertyChanged("Scores");
+            LoadScore(CurrentScores);
         }
 
+        #region Commands
         private ICommand _getNextCommand;
         public ICommand GetNextCommand => _getNextCommand ?? (_getNextCommand = new RelayCommand(GetNextContent));
 
@@ -141,28 +118,19 @@ namespace SnakeUWP.Core.ViewModels
                 return onBack;
             }
         }
+        #endregion
 
-        public HighscoreViewModel(INavigation navigation)
+        public HighscoreViewModel(INavigation navigation, IDatabase database)
         {
+            userDbRepository = new UserDbRepository(database.Connection);
             this.navigation = navigation;
-            Scores = new ObservableCollection<PlayerScore>
-            {
-                new PlayerScore("Dawid", 3100, 1),
-                new PlayerScore("Konrad", 2500, 2),
-                new PlayerScore("Kasia", 2200, 3),
-                new PlayerScore("Dariusz", 2200, 4),
-                new PlayerScore("Marek", 1050, 5),
-                new PlayerScore("Ola", 1000, 8),
-                new PlayerScore("Asia", 500, 6),
-                new PlayerScore("Mirek", 60, 7),
-                new PlayerScore("Tomek", 30, 9),
-                new PlayerScore("Adam", 10, 10)
-            };
+            LoadScore(CurrentScores);
         }
 
         public override void Cleanup()
         {
-            base.Cleanup();
+            CurrentScores = LevelType.Medium;
+            LoadScore(CurrentScores);
         }
     }
 }

@@ -9,7 +9,8 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SnakeUWP</RootNamespace>
     <AssemblyName>SnakeUWP</AssemblyName>
-    <DefaultLanguage>en-US</DefaultLanguage>
+    <DefaultLanguage>
+    </DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
@@ -109,6 +110,8 @@
     <Compile Include="Pages\OptionsPage.xaml.cs">
       <DependentUpon>OptionsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\Settings.cs" />
+    <Compile Include="Services\WindowsDatabase.cs" />
     <Compile Include="Services\CanvasHelper.cs" />
     <Compile Include="Services\SoundPlayer.cs" />
     <Compile Include="Services\Timer.cs" />
@@ -117,6 +120,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\WindowsResources.cs" />
     <Compile Include="ViewModelLocator.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -140,12 +144,8 @@
     <Content Include="Assets\player.png" />
     <Content Include="Assets\red.png" />
     <Content Include="Assets\rightArrow.png" />
-    <Content Include="Assets\Scale-100\startButton.png" />
-    <Content Include="Assets\Scale-120\snakeButton.png" />
-    <Content Include="Assets\Scale-140\snakeButton.png" />
-    <Content Include="Assets\Scale-160\snakeButton.png" />
-    <Content Include="Assets\Scale-180\snakeButton.png" />
-    <Content Include="Assets\Scale-200\snakeButton.png" />
+    <Content Include="Assets\SplashScreen.scale-125.png" />
+    <Content Include="Assets\startButton.png" />
     <Content Include="Assets\snakebody.png" />
     <Content Include="Assets\sound.mp3" />
     <Content Include="Assets\soundButton.png" />
@@ -153,12 +153,10 @@
     <Content Include="Assets\upArrow.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
-    <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
-    <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -194,6 +192,11 @@
       <Project>{fb1e5e13-73a9-4e3f-ab59-4b506a4d3904}</Project>
       <Name>SnakeUWP.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="SQLite.UWP.2015, Version=3.12.1">
+      <Name>SQLite for Universal Windows Platform</Name>
+    </SDKReference>
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

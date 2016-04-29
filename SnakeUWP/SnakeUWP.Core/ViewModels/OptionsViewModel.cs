@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
+using App03.Core.Repositories;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using SnakeUWP.Core.Models;
@@ -9,16 +10,46 @@ namespace SnakeUWP.Core.ViewModels
 {
     public class OptionsViewModel : ViewModelBase
     {
-        private INavigation navigation;
-
-        public Action<bool> OnSoundPlayChanged { get; set; }
-
-        public OptionsViewModel(INavigation navigation)
+        private void LoadSettings()
         {
-            this.navigation = navigation;
+            var levelType = Singleton.Instance.LevelType;
+            switch (levelType)
+            {
+                case LevelType.Easy:
+                    LevelButtonImage = resources.ImageEasyLevel;
+                    break;
+                case LevelType.Medium:
+                    LevelButtonImage = resources.ImageMediumLevel;
+                    break;
+                case LevelType.Hard:
+                    LevelButtonImage = resources.ImageHardLevel;
+                    break;
+            }
+            MusicOption = Singleton.Instance.MusicPlayed;
         }
 
-        private string _musicButtonImage = "ms-appx:///Assets/soundButton.png";
+        private void SaveSettings()
+        {
+            settings.SaveSettings(Singleton.Instance.LevelType, Singleton.Instance.MusicPlayed);
+        }
+
+        private INavigation navigation;
+        private IResources resources;
+        private ISettings settings;
+        public Action<bool> OnSoundPlayChanged { get; set; }
+
+        public OptionsViewModel(INavigation navigation, IResources resources, ISettings settings)
+        {
+            this.navigation = navigation;
+            this.resources = resources;
+            this.settings = settings;
+            _musicButtonImage = resources.ImageMusicOn;
+            _levelButtonImage = resources.ImageEasyLevel;
+            LoadSettings();
+        }
+
+        #region Properties
+        private string _musicButtonImage;
 
         private bool _musicOption;
         public bool MusicOption
@@ -27,10 +58,10 @@ namespace SnakeUWP.Core.ViewModels
             set
             {
                 Set(ref _musicOption, value);
-                if (value == false)
-                    MusicButtonImage = "ms-appx:///Assets/soundButton.png";
+                if (value == false) 
+                    MusicButtonImage = resources.ImageMusicOn;
                 else
-                    MusicButtonImage = "ms-appx:///Assets/nosoundButton.png";
+                    MusicButtonImage = resources.ImageMusicOff;
             }
         }
 
@@ -43,7 +74,7 @@ namespace SnakeUWP.Core.ViewModels
             set { Set(ref _musicButtonImage, value); }
         }
 
-        private string _levelButtonImage = "ms-appx:///Assets/easyLevel.png";
+        private string _levelButtonImage;
 
         public string LevelButtonImage
         {
@@ -51,8 +82,10 @@ namespace SnakeUWP.Core.ViewModels
             set { Set(ref _levelButtonImage, value); }
         }
 
-        private string _levelType="Easy Level";
-        public string LevelType { get { return _levelType; } set { Set(ref _levelType, value); } }
+        private LevelType _levelType = Models.LevelType.Easy;
+        public LevelType LevelType { get { return _levelType; } set { Set(ref _levelType, value); } }
+
+        #endregion
 
         #region Commands
 
@@ -79,13 +112,13 @@ namespace SnakeUWP.Core.ViewModels
                 if (_musicCommand == null) _musicCommand = new RelayCommand(() =>
                       {
                           MusicOption = !MusicOption;
+                          Singleton.Instance.MusicPlayed = MusicOption;
                           OnSoundPlayChanged(MusicOption);
+                          SaveSettings();
                       });
                 return _musicCommand;
             }
         }
-
-        private int levelCounter = 0;
 
         private ICommand _levelCommand;
 
@@ -95,24 +128,23 @@ namespace SnakeUWP.Core.ViewModels
             {
                 if (_levelCommand == null) _levelCommand = new RelayCommand(() =>
                 {
-                    if (levelCounter == 0)
+                    var status = Singleton.Instance.LevelType;
+                    switch (status)
                     {
-                        LevelButtonImage= "ms-appx:///Assets/mediumLevel.png";
-                        Singleton.Instance.LevelType = "Medium Level";
-                        levelCounter++;
+                        case LevelType.Easy:
+                            LevelButtonImage = resources.ImageMediumLevel;
+                            Singleton.Instance.LevelType = Models.LevelType.Medium;
+                            break;
+                        case LevelType.Medium:
+                            LevelButtonImage = resources.ImageHardLevel;
+                            Singleton.Instance.LevelType = Models.LevelType.Hard;
+                            break;
+                        case LevelType.Hard:
+                            LevelButtonImage = resources.ImageEasyLevel;
+                            Singleton.Instance.LevelType = Models.LevelType.Easy;
+                            break;
                     }
-                    else if (levelCounter == 1)
-                    {
-                        LevelButtonImage = "ms-appx:///Assets/hardLevel.png";
-                        Singleton.Instance.LevelType = "Hard Level";
-                        levelCounter++;
-                    }
-                    else
-                    {
-                        LevelButtonImage = "ms-appx:///Assets/easyLevel.png";
-                        Singleton.Instance.LevelType = "Easy Level";
-                        levelCounter = 0;
-                    }
+                    SaveSettings();
                 });
                 return _levelCommand;
             }
@@ -122,6 +154,7 @@ namespace SnakeUWP.Core.ViewModels
         public override void Cleanup()
         {
             base.Cleanup();
+            LoadSettings();
         }
     }
 }

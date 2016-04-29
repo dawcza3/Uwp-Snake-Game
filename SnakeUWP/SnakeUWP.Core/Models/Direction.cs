@@ -13,4 +13,10 @@ namespace SnakeUWP.Core.Models
     {
         SnakeHead,SnakeBody
     }
+
+    public enum LevelType
+    {
+        Easy,Medium,Hard
+    }
+
 }
