@@ -2,6 +2,7 @@
 using Windows.UI.Xaml.Controls;
 using Mvvm.Services.Sound;
 using SnakeUWP.Core.Models;
+using SnakeUWP.Core.ViewModels;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -13,7 +14,7 @@ namespace SnakeUWP
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private static bool _loadedMusic = false;
+        private static bool _loadedMusic;
         public MainPage()
         {
             this.InitializeComponent();
@@ -28,7 +29,6 @@ namespace SnakeUWP
                 SoundPlayer.Instance.Initialize();
                 PlaySound();
             }
-
         }
 
         public async void PlaySound()

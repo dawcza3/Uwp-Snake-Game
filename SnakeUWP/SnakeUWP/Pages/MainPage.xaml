@@ -25,7 +25,8 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-
+        
+        <!-- Header-->
         <Grid ColumnSpan="6">
             <TextBlock FontSize="40"
                        Margin="12,12,12,12"
@@ -71,7 +72,7 @@
                 </TransitionCollection>
             </Button.Transitions>
         </Button>
-        
+
         <!-- Highscore button -->
         <Button Grid.Row="1" Grid.Column="4"   Grid.ColumnSpan="2" Grid.RowSpan="2"
                 Foreground="Black"

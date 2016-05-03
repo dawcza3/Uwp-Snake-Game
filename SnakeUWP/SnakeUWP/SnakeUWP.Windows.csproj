@@ -110,6 +110,7 @@
     <Compile Include="Pages\OptionsPage.xaml.cs">
       <DependentUpon>OptionsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\MusicPlayer.cs" />
     <Compile Include="Services\Settings.cs" />
     <Compile Include="Services\WindowsDatabase.cs" />
     <Compile Include="Services\CanvasHelper.cs" />
@@ -144,13 +145,18 @@
     <Content Include="Assets\player.png" />
     <Content Include="Assets\red.png" />
     <Content Include="Assets\rightArrow.png" />
-    <Content Include="Assets\SplashScreen.scale-125.png" />
-    <Content Include="Assets\startButton.png" />
     <Content Include="Assets\snakebody.png" />
+    <Content Include="Assets\SplashScreen.scale-100.png" />
+    <Content Include="Assets\SplashScreen.scale-125.png" />
+    <Content Include="Assets\SplashScreen.scale-150.png" />
+    <Content Include="Assets\SplashScreen.scale-200.png" />
+    <Content Include="Assets\startButton.png" />
+    <Content Include="Assets\snakehead.png" />
     <Content Include="Assets\sound.mp3" />
     <Content Include="Assets\soundButton.png" />
     <Content Include="Assets\stopButton.png" />
     <Content Include="Assets\upArrow.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-100.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\Square150x150Logo.scale-200.png" />

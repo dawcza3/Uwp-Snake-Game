@@ -66,6 +66,7 @@ namespace SnakeUWP
             SimpleIoc.Default.Register<IDatabase, WindowsDatabase>();
             SimpleIoc.Default.Register<ISettings,Settings>();
 
+
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<OptionsViewModel>();
             SimpleIoc.Default.Register<GameViewModel>();

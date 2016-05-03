@@ -51,19 +51,5 @@ namespace SnakeUWP.Pages
             return new BitmapImage(new Uri("ms-appx:///Assets/" + imageFilename));
         }
 
-/*        public void InvaderShot()
-        {
-            invaderShotStoryboard.Begin();
-        }
-
-        public void StartFlashing()
-        {
-            flashStoryboard.Begin();
-        }
-
-        public void StopFlashing()
-        {
-            flashStoryboard.Stop();
-        }*/
     }
 }

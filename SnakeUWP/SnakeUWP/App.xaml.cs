@@ -7,6 +7,8 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Security.ExchangeActiveSyncProvisioning;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -80,6 +82,13 @@ namespace SnakeUWP
             }
             // Ensure the current window is active
             Window.Current.Activate();
+            Package package = Package.Current;
+            var systemArchitecture = package.Id.Architecture.ToString();
+            if (systemArchitecture != "X64" && systemArchitecture != "X86")
+            {
+                ApplicationView view = ApplicationView.GetForCurrentView();
+                view.TryEnterFullScreenMode();
+            }
         }
 
         /// <summary>

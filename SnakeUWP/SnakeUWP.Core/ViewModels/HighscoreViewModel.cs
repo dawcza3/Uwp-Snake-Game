@@ -12,6 +12,7 @@ namespace SnakeUWP.Core.ViewModels
 {
     public class HighscoreViewModel : ViewModelBase
     {
+        #region Properties/Fields
         private UserDbRepository userDbRepository;
         private ObservableCollection<PlayerScore> _scores;
 
@@ -31,29 +32,14 @@ namespace SnakeUWP.Core.ViewModels
             get { return _currentScores; }
             set { Set(ref _currentScores, value); }
         }
+        #endregion
 
-        private void GetNextContent()
-        {
-            switch (CurrentScores)
-            {
-                case LevelType.Medium:
-                    CurrentScores = LevelType.Hard;
-                    break;
-                case LevelType.Hard:
-                    CurrentScores = LevelType.Easy;
-                    break;
-                default:
-                    CurrentScores = LevelType.Medium;
-                    break;
-            }
-            LoadScore(CurrentScores);
-        }
-
+        #region Methods
         private async void LoadScore(LevelType scoreType)
         {
             try
             {
-                List<User> _users=new List<User>();
+                List<User> _users = new List<User>();
                 int place = 1;
                 _users = new List<User>(
                              await userDbRepository.GetUsersWithLevel(CurrentScores));
@@ -66,7 +52,7 @@ namespace SnakeUWP.Core.ViewModels
                 }
                 while (Scores.Count < 10)
                 {
-                    Scores.Add(new PlayerScore("Player",0,place));
+                    Scores.Add(new PlayerScore("Player", 0, place));
                     place++;
                 }
 
@@ -95,6 +81,25 @@ namespace SnakeUWP.Core.ViewModels
             LoadScore(CurrentScores);
         }
 
+        private void GetNextContent()
+        {
+            switch (CurrentScores)
+            {
+                case LevelType.Medium:
+                    CurrentScores = LevelType.Hard;
+                    break;
+                case LevelType.Hard:
+                    CurrentScores = LevelType.Easy;
+                    break;
+                default:
+                    CurrentScores = LevelType.Medium;
+                    break;
+            }
+            LoadScore(CurrentScores);
+        }
+
+        #endregion
+
         #region Commands
         private ICommand _getNextCommand;
         public ICommand GetNextCommand => _getNextCommand ?? (_getNextCommand = new RelayCommand(GetNextContent));
@@ -120,6 +125,7 @@ namespace SnakeUWP.Core.ViewModels
         }
         #endregion
 
+        #region Initializate
         public HighscoreViewModel(INavigation navigation, IDatabase database)
         {
             userDbRepository = new UserDbRepository(database.Connection);
@@ -132,5 +138,6 @@ namespace SnakeUWP.Core.ViewModels
             CurrentScores = LevelType.Medium;
             LoadScore(CurrentScores);
         }
+        #endregion
     }
 }

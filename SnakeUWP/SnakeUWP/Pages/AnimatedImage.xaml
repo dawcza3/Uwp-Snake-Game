@@ -22,6 +22,10 @@
                     <DiscreteObjectKeyFrame KeyTime="0:0:0.8" Value="Visible"/>
                 </ObjectAnimationUsingKeyFrames>
             </Storyboard>
+            <Storyboard x:Name="rotateHead">
+                <DoubleAnimation From="1" To="0" Storyboard.TargetName="image"
+                        Storyboard.TargetProperty=""  Duration="0:0:0.5" />
+            </Storyboard>
         </Grid.Resources>
         <Image x:Name="image" Stretch="Fill"/>
     </Grid>

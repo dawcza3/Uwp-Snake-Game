@@ -22,7 +22,13 @@ namespace SnakeUWP.Services
 
         internal static FrameworkElement SnakeControlFactory(SnakeBody snakeHead, double scale)
         {
-            AnimatedImage snakeControl = new AnimatedImage(new List<string>() { "player.png" }, TimeSpan.FromSeconds(1));
+            AnimatedImage snakeControl;
+            //AnimatedImage snakeControl = new AnimatedImage(new List<string>() { "player.png" }, TimeSpan.FromSeconds(1));
+            if (snakeHead.BodyType==SnakeBodyType.SnakeBody)
+                snakeControl = new AnimatedImage(new List<string>() { "snakebody.png" }, TimeSpan.FromSeconds(1));
+            else
+                snakeControl= new AnimatedImage(new List<string>() { "snakehead.png" }, TimeSpan.FromSeconds(1));
+
             snakeControl.Width = snakeHead.Size.Width * scale;
             snakeControl.Height = snakeHead.Size.Height * scale;
             SetCanvasLocation(snakeControl, snakeHead.Location.X * scale, snakeHead.Location.Y * scale);
@@ -37,6 +43,7 @@ namespace SnakeUWP.Services
 
         public static void MoveElementOnCanvas(FrameworkElement FrameworkElement, double toX, double toY)
         {
+
             double fromX = Canvas.GetLeft(FrameworkElement);
             double fromY = Canvas.GetTop(FrameworkElement);
 

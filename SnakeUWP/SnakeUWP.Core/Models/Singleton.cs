@@ -1,7 +1,4 @@
-﻿using GalaSoft.MvvmLight.Ioc;
-using SnakeUWP.Core.Services;
-
-namespace SnakeUWP.Core.Models
+﻿namespace SnakeUWP.Core.Models
 {
 
     public sealed class Singleton

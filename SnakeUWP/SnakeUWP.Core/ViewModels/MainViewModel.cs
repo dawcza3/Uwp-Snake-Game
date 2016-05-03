@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using SnakeUWP.Core.Models;
@@ -8,9 +9,13 @@ namespace SnakeUWP.Core.ViewModels
 {
     public class MainViewModel:ViewModelBase
     {
-        #region Commands
+        #region Services
         private INavigation navigation;
         private ISettings settings;
+        #endregion
+
+        #region Commands
+
         private ICommand navigateToOptions;
         public ICommand NavigateToOptions
         {
@@ -54,8 +59,8 @@ namespace SnakeUWP.Core.ViewModels
             }
         }
         #endregion
-
-        #region Constructor
+        
+       #region Constructor
         
         public MainViewModel(INavigation navigation,ISettings settings)
         {

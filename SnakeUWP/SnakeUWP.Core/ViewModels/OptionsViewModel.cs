@@ -10,6 +10,25 @@ namespace SnakeUWP.Core.ViewModels
 {
     public class OptionsViewModel : ViewModelBase
     {
+        #region Initalizate
+        public OptionsViewModel(INavigation navigation, IResources resources, ISettings settings)
+        {
+            this.navigation = navigation;
+            this.resources = resources;
+            this.settings = settings;
+            _musicButtonImage = resources.ImageMusicOn;
+            _levelButtonImage = resources.ImageEasyLevel;
+            LoadSettings();
+        }
+
+        public override void Cleanup()
+        {
+            base.Cleanup();
+            LoadSettings();
+        }
+        #endregion
+
+        #region Methods
         private void LoadSettings()
         {
             var levelType = Singleton.Instance.LevelType;
@@ -32,23 +51,15 @@ namespace SnakeUWP.Core.ViewModels
         {
             settings.SaveSettings(Singleton.Instance.LevelType, Singleton.Instance.MusicPlayed);
         }
+        #endregion
 
+        #region Properties/Fields
         private INavigation navigation;
         private IResources resources;
         private ISettings settings;
         public Action<bool> OnSoundPlayChanged { get; set; }
 
-        public OptionsViewModel(INavigation navigation, IResources resources, ISettings settings)
-        {
-            this.navigation = navigation;
-            this.resources = resources;
-            this.settings = settings;
-            _musicButtonImage = resources.ImageMusicOn;
-            _levelButtonImage = resources.ImageEasyLevel;
-            LoadSettings();
-        }
 
-        #region Properties
         private string _musicButtonImage;
 
         private bool _musicOption;
@@ -58,7 +69,7 @@ namespace SnakeUWP.Core.ViewModels
             set
             {
                 Set(ref _musicOption, value);
-                if (value == false) 
+                if (value == false)
                     MusicButtonImage = resources.ImageMusicOn;
                 else
                     MusicButtonImage = resources.ImageMusicOff;
@@ -151,10 +162,5 @@ namespace SnakeUWP.Core.ViewModels
         }
         #endregion
 
-        public override void Cleanup()
-        {
-            base.Cleanup();
-            LoadSettings();
-        }
     }
 }

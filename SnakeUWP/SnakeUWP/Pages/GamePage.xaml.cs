@@ -75,16 +75,16 @@ namespace SnakeUWP.Pages
                 var snakePart = e.SnakeUpdated;
                 if (!_snakeBodies.ContainsKey(snakePart))
                 {
-                    FrameworkElement invaderControl = CanvasHelper.SnakeControlFactory(snakePart,
+                    FrameworkElement snakeControl = CanvasHelper.SnakeControlFactory(snakePart,
                         _scale);
-                    _snakeBodies[snakePart] = invaderControl;
-                    _sprites.Add(invaderControl);
+                    _snakeBodies[snakePart] = snakeControl;
+                    _sprites.Add(snakeControl);
                 }
                 else
                 {
-                    FrameworkElement invaderControl = _snakeBodies[snakePart];
-                    CanvasHelper.ResizeElement(invaderControl, snakePart.Size.Width * _scale, snakePart.Size.Height * _scale);
-                    CanvasHelper.MoveElementOnCanvas(invaderControl, snakePart.Location.X * _scale, snakePart.Location.Y * _scale);
+                    FrameworkElement snakeControl = _snakeBodies[snakePart];
+                    CanvasHelper.ResizeElement(snakeControl, snakePart.Size.Width * _scale, snakePart.Size.Height * _scale);
+                    CanvasHelper.MoveElementOnCanvas(snakeControl, snakePart.Location.X * _scale, snakePart.Location.Y * _scale);
                 }
             }
         }

@@ -107,7 +107,7 @@
                         Margin="12,12,12,12"
                         FontSize="16" >
                     <Run Text="{Binding UserName}"/>
-                    <Run Text=" ,you failed."></Run>
+                    <Run Text=", you failed."></Run>
                 </TextBlock>
 
                 <Button Content="Go back to menu"

@@ -52,6 +52,7 @@
     <Compile Include="Services\INavigation.cs" />
     <Compile Include="Services\IResources.cs" />
     <Compile Include="Services\ISettings.cs" />
+    <Compile Include="Services\IMusicPlayer.cs" />
     <Compile Include="Services\ITimer.cs" />
     <Compile Include="Respositories\UserDbRepository.cs" />
     <Compile Include="ViewModels\GameViewModel.cs" />

@@ -44,14 +44,14 @@ namespace SnakeUWP.Services
 
         public bool LoadMusicStatusSetting(bool isMusicPlayed)
         {
-            if (localSettings.Values["levelType"] == null)
+            if (localSettings.Values["musicPlayed"] == null)
             {
                 SaveMusicStatusSetting(false);
                 return false;
             }
             else
             {
-                return (bool)localSettings.Values["musicPlayed"];
+              return (bool) localSettings.Values["musicPlayed"];
             }
         }
 

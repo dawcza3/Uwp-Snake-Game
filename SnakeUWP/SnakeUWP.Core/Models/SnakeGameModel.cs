@@ -45,6 +45,8 @@ namespace SnakeUWP.Core.Models
             {
                 _snakeBodies[index].Direction = _snakeBodies[index - 1].Direction;
                 _snakeBodies[index].Location = _snakeBodies[index - 1].Location;
+                /*_snakeBodies[index].Location=new Point(_snakeBodies[index-1].Location.X-10,
+                    _snakeBodies[index-1].Location.Y - 10); edycja kolekcjonerska */
                 OnSnakeChanged(_snakeBodies[index], false);
             }
             var isCanMove = _snakeBodies.First().Move(_snakeBodies.First().Direction);
@@ -91,7 +93,6 @@ namespace SnakeUWP.Core.Models
 
         private void CheckForFruitCollisions()
         {
-
             if (_fruit == null) return;
             if (_snakeBodies.First().Area.Contains(_fruit.Location) ||
                 _fruit.Area.Contains(_snakeBodies.First().Location))
@@ -110,21 +111,20 @@ namespace SnakeUWP.Core.Models
             var x = _snakeBodies.Last().Location.X;
             var y = _snakeBodies.Last().Location.Y;
 
-            if (_snakeBodies.Last().Direction == Direction.Right)
+            switch (_snakeBodies.Last().Direction)
             {
-                snakeBody.Location = new Point(x - SnakeBody.PlayerSize.Width, y);
-            }
-            else if (_snakeBodies.Last().Direction == Direction.Left)
-            {
-                snakeBody.Location = new Point(x + SnakeBody.PlayerSize.Width, y);
-            }
-            else if (_snakeBodies.Last().Direction == Direction.Down)
-            {
-                snakeBody.Location = new Point(x, y - SnakeBody.PlayerSize.Height);
-            }
-            else
-            {
-                snakeBody.Location = new Point(x, y + SnakeBody.PlayerSize.Height);
+                case Direction.Right:
+                    snakeBody.Location = new Point(x - SnakeBody.PlayerSize.Width, y);
+                    break;
+                case Direction.Left:
+                    snakeBody.Location = new Point(x + SnakeBody.PlayerSize.Width, y);
+                    break;
+                case Direction.Down:
+                    snakeBody.Location = new Point(x, y - SnakeBody.PlayerSize.Height);
+                    break;
+                default:
+                    snakeBody.Location = new Point(x, y + SnakeBody.PlayerSize.Height);
+                    break;
             }
             _snakeBodies.Add(snakeBody);
             OnSnakeChanged(snakeBody, false);
